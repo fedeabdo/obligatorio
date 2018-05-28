@@ -1,0 +1,8 @@
+HEAP
+	Operaciones:
+				agregar(P, V) 	//P pioridad , V valor. Para la implementacion de PiorityQueue. En HEAP no hay keys, no "permite" busquedas por keys.
+				get():V		// get de mayor pioridad	
+				eliminar(): void		// eliminar el de mayor pioridad
+				size(): int
+	Implementacion:
+				 Con vectores: 2i+1 leftChild, 2i+2 rightChild, (i-1)/2 padre
