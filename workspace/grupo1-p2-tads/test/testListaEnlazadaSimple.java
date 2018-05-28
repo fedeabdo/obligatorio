@@ -1,12 +1,15 @@
 import static org.junit.Assert.*;
-import uy.edu.um.prog2.tad.linkedlist.ListaEnlazadaSimple;
+
 
 import org.junit.Test;
+
+import uy.edu.um.prog2.adt.ListaEnlazadaSimple.ListaEnlazadaSimple;
+import uy.edu.um.prog2.adt.ListaEnlazadaSimple.Exceptions.PosicionInvalida;
 
 public class testListaEnlazadaSimple {
 
 	@Test
-	public void testFlujoNormal() {
+	public void testFlujoNormal() throws PosicionInvalida {
 		ListaEnlazadaSimple<Integer> miLista = new ListaEnlazadaSimple<>();
 		miLista.agregar(0);
 		miLista.agregar(1);
