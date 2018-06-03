@@ -2,14 +2,15 @@
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import org.junit.Test;
 
 import uy.edu.um.prog2.adt.ListaEnlazadaSimple.Exceptions.PosicionInvalida;
 import uy.edu.um.prog2.adt.Tree.*;
-//import static org.junit.Assert.assertSame;
-import org.junit.Test;
+import uy.edu.um.prog2.adt.Tree.Exceptions.InvalidKey;
+import uy.edu.um.prog2.adt.ListaEnlazadaSimple.Exceptions.PosicionInvalida;
 
 public class TestBST {
-		
+	
 	@Test
 	public void testInsert() {
 		MyBinarySearchTree<Integer, String> oT=new BSTImpl<Integer, String>();
@@ -36,21 +37,31 @@ public class TestBST {
 		MyBinarySearchTree<Integer, String> oT = new BSTImpl<Integer, String>();
 		oT.insert(5, "Raiz");
 		oT.insert(2, "segundoElemento");
-		oT.insert(10, "tercerElemento");
-		oT.insert(7, "cuartoElemento");
-		oT.insert(6, "quintoElemento");
+//		oT.insert(10, "tercerElemento");
+//		oT.insert(7, "cuartoElemento");
+//		oT.insert(6, "quintoElemento");
 	
-		oT.delete(5);
-//		oT.delete(10);
-		
 		try {
-			assertEquals(oT.inOrder().obtener(0), "segundoElemento");
-			assertEquals(oT.inOrder().obtener(1), "quintoElemento");
-			assertEquals(oT.inOrder().obtener(2), "cuartoElemento");
-			assertEquals(oT.inOrder().obtener(3), "tercerElemento");
-		}catch(PosicionInvalida e) {
+			oT.delete(5);
+			oT.delete(2);
+		} catch (InvalidKey e) {
 			fail();
 		}
+		
+		try {
+			oT.delete(11);
+			fail();
+		} catch (InvalidKey e) {}
+		
+		
+		/*try {
+			assertEquals(oT.inOrder().get(0), "segundoElemento");
+			assertEquals(oT.inOrder().get(1), "quintoElemento");
+			assertEquals(oT.inOrder().get(2), "cuartoElemento");
+			assertEquals(oT.inOrder().get(3), "tercerElemento");
+		}catch(posicionInvalida e) {
+			System.out.println("error");
+		}*/
 		
 	}
 	
