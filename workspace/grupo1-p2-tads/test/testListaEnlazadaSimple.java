@@ -50,8 +50,8 @@ public class testListaEnlazadaSimple {
 		assertEquals(Integer.valueOf(5),miLista.obtener(4));
 		assertEquals(Integer.valueOf(20),miLista.obtener(5));
 		
-		assertTrue(miLista.esta(150));
-		assertFalse(miLista.esta(34));
+		assertTrue(miLista.esta(150)!=null);
+		assertFalse(miLista.esta(34)!=null);
 	}
 	
 

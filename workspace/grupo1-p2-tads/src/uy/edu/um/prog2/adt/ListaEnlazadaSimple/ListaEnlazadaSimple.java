@@ -88,15 +88,15 @@ public class ListaEnlazadaSimple<T> implements MiListaEnlazada<T> {
 		return nTamanio;
 	}
 	
-	public boolean esta (T n) {
+	public T esta (T n) {
 		NodoObjects<T> oNodoObjetos = new NodoObjects<T>(n);
-		boolean bSalida = false;
+		T bSalida = null;
 		NodoObjects<T> oTemp = primero;
 		while(oTemp!= null && !oTemp.getObjeto().equals( oNodoObjetos.getObjeto())) {
 				oTemp = oTemp.getProximo();
 		}
 		if(oTemp != null && oTemp.getObjeto().equals(oNodoObjetos.getObjeto() )) {
-			bSalida = true;
+			bSalida = oTemp.getObjeto();
 		}
 		return bSalida;
 	}
