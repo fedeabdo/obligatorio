@@ -1,2 +1,0 @@
-# obligatorio
-Obligatorio. Porgramacion II.
