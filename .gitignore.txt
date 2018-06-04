@@ -1,3 +1,4 @@
-.metadata
+workspace/ .metadata
 *.class
-bin
+workspace/grupo1-p2-tads/bin
+workspace/grupo1-p2/bin
