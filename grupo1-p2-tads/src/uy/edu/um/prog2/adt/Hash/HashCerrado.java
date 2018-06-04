@@ -9,6 +9,7 @@ public class HashCerrado<K, T> implements HashTable<K, T> {
 	private int cantElementos;
 	private boolean resolucionLineal;
 
+	@SuppressWarnings("unchecked")
 	public HashCerrado(int sizeInicial, boolean resolucionLineal) {
 		vector = new NodoHash[sizeInicial];
 		size = sizeInicial;
@@ -89,16 +90,19 @@ public class HashCerrado<K, T> implements HashTable<K, T> {
 			get(clave).setEliminado(true);
 			cantElementos--;
 		} else {
-			throw new ClaveInvalida();
+			throw new ClaveInvalida("Clave invalida.");
 		}
 	}
 
+
 	private void agrandarHash() {
 		int nuevoSize = 2 * size;
+		@SuppressWarnings("unchecked")
 		NodoHash<K, T>[] vectorNuevo = new NodoHash[nuevoSize];
 		for (int i = 0; i < size; i++) {
 			if(vector[i]!=null) {
 				K claveAux = vector[i].getClave();
+				@SuppressWarnings("unused")
 				T valorAux = vector[i].getValor();
 
 				int posicion = claveAux.hashCode() % nuevoSize;

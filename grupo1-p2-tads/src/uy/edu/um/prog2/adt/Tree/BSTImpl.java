@@ -58,7 +58,7 @@ public class BSTImpl<K extends Comparable<K>, T> implements MyBinarySearchTree<K
 	public void delete(K key) throws InvalidKey{
 		NodeBST<K, T> aEliminar = findNodeInAll(key);
 		if(aEliminar==null) {
-			throw new InvalidKey();
+			throw new InvalidKey("Invalid key.");
 		}
 		NodeBST<K, T> replacement = null;
 		K keyAux = null;

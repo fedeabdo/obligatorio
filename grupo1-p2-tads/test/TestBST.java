@@ -7,7 +7,7 @@ import org.junit.Test;
 import uy.edu.um.prog2.adt.ListaEnlazadaSimple.Exceptions.PosicionInvalida;
 import uy.edu.um.prog2.adt.Tree.*;
 import uy.edu.um.prog2.adt.Tree.Exceptions.InvalidKey;
-import uy.edu.um.prog2.adt.ListaEnlazadaSimple.Exceptions.PosicionInvalida;
+//import uy.edu.um.prog2.adt.ListaEnlazadaSimple.Exceptions.PosicionInvalida;
 
 public class TestBST {
 	
