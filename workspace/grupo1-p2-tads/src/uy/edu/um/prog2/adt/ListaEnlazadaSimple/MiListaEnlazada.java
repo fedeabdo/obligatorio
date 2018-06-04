@@ -7,5 +7,5 @@ public interface MiListaEnlazada<G> {
 	void eliminar(int i);
 	G obtener(int i) throws PosicionInvalida;
 	int tamanio();
-	G esta(G empresa);
+	G esta(G obj);
 }
