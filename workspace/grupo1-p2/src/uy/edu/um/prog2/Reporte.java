@@ -19,16 +19,24 @@ public class Reporte {
 		}
 	}
 
-	public void reporte1() throws PosicionInvalida, EmptyQueueException {
+	public void reporte1() {
 		MiListaEnlazada<Empresa> listaEmpresas = file.getEmpresas();
 		MyPiorityQueue<Empresa> EmpresaOrdenadaCantProductos = new Queue<>();
-		Empresa oEmpresa;
+		Empresa oEmpresa=null;
 		for (int i = 0; i < listaEmpresas.tamanio(); i++) {
-			oEmpresa = listaEmpresas.obtener(i);
+			try {
+				oEmpresa = listaEmpresas.obtener(i);
+			} catch (PosicionInvalida e) {
+				e.printStackTrace();
+			}
 			EmpresaOrdenadaCantProductos.insert(oEmpresa, oEmpresa.getCantProductos());
 		}
 		for (int i = 0; i < listaEmpresas.tamanio(); i++) {
-			oEmpresa = EmpresaOrdenadaCantProductos.dequeue();
+			try {
+				oEmpresa = EmpresaOrdenadaCantProductos.dequeue();
+			} catch (EmptyQueueException e) {
+				e.printStackTrace();
+			}
 			System.out.println(oEmpresa.getNombre() + "		" + oEmpresa.getCantProductos());
 		}
 	}
@@ -38,20 +46,31 @@ public class Reporte {
 		// for(in)
 	}
 
-	public void reporte3() throws PosicionInvalida, EmptyQueueException {
+	public void reporte3() {
 		MiListaEnlazada<Pais> listaPaises = file.getPaises();
 		MyPiorityQueue<Pais> paisOrdenadoCantProductosH = new Queue<>();
-		Pais oPais;
+		Pais oPais=null;
 		for (int i = 0; i < listaPaises.tamanio(); i++) {
-			oPais = listaPaises.obtener(i);
+			try {
+				oPais = listaPaises.obtener(i);
+			} catch (PosicionInvalida e) {
+				e.printStackTrace();
+			}
 			paisOrdenadoCantProductosH.insert(oPais, oPais.getCantProductosHabilitados());
 		}
 		for (int i = 0; i < listaPaises.tamanio(); i++) {
-			oPais=paisOrdenadoCantProductosH.dequeue();
+			try {
+				oPais=paisOrdenadoCantProductosH.dequeue();
+			} catch (EmptyQueueException e) {
+				e.printStackTrace();
+			}
 			System.out.println(oPais.getNombre() + "   " + oPais.getCantProductosHabilitados() + "   " + oPais.getPorcentajeProductos(file.getCantProductos()));
 		}
 	}
 	
+	public void reporte4() {
+
+	}
 	
 
 }
