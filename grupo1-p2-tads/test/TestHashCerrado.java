@@ -99,6 +99,30 @@ public class TestHashCerrado {
 			fail();
 		}
 	}
+	@Test
+	public void testObtener() {
+		HashCerrado<String, Integer> hash = new HashCerrado<>(5, true);
+		try {
+			hash.insertar("uno", 1);
+			hash.insertar("dos", 2);
+			hash.insertar("tres",3);
+			hash.insertar("cuatro", 4);
+			hash.insertar("cinco", 5);
+
+		} catch (ElementoYaExistenteException e) {
+			fail();
+		}
+		
+		assertNull(hash.obtener("u"));
+		assertEquals((Integer) 2, hash.obtener("dos"));
+		assertEquals((Integer) 1, hash.obtener("uno"));
+		assertEquals((Integer) 4, hash.obtener("cuatro"));
+		assertEquals((Integer) 5, hash.obtener("cinco"));
+		assertNull(hash.obtener("uasd"));
+		assertEquals((Integer) 3, hash.obtener("tres"));
+		assertEquals((Integer) 1, hash.obtener("uno"));
+		assertNull(hash.obtener("uasdf"));	
+	}
 
 	
 

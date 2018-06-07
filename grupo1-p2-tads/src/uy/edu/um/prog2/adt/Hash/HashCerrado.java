@@ -1,6 +1,7 @@
 package uy.edu.um.prog2.adt.Hash;
 
 import uy.edu.um.prog2.adt.Hash.Exceptions.ElementoYaExistenteException;
+import static java.lang.Math.abs;
 import uy.edu.um.prog2.adt.Hash.Exceptions.ClaveInvalida;
 
 public class HashCerrado<K, T> implements HashTable<K, T> {
@@ -22,7 +23,7 @@ public class HashCerrado<K, T> implements HashTable<K, T> {
 		if ((float) cantElementos / size > 0.8) {
 			agrandarHash();
 		}
-		int posicion = clave.hashCode() % size;
+		int posicion = abs(clave.hashCode() % size);
 		if (vector[posicion] == null || vector[posicion].isEliminado()) {
 			vector[posicion] = nuevoNodo;
 		} else {
@@ -49,7 +50,7 @@ public class HashCerrado<K, T> implements HashTable<K, T> {
 
 	public boolean pertenece(K clave) {
 		boolean pertenece = false;
-		int posEsperada = clave.hashCode() % size;
+		int posEsperada = abs(clave.hashCode() % size);
 		if (vector[posEsperada] != null) {
 			if (vector[posEsperada].getClave().equals(clave) && vector[posEsperada].isEliminado() == false) {
 				pertenece = true;
@@ -105,16 +106,16 @@ public class HashCerrado<K, T> implements HashTable<K, T> {
 				@SuppressWarnings("unused")
 				T valorAux = vector[i].getValor();
 
-				int posicion = claveAux.hashCode() % nuevoSize;
+				int posicion = abs(claveAux.hashCode() % nuevoSize);
 				if (vectorNuevo[posicion] == null) {
 					vectorNuevo[posicion] = vector[i];
 				} else {
 					int posAux = posicion;
 					int cuadratica = 1;
-					while (vector[posAux] != null && vector[posAux].isEliminado()) {
+					while (vectorNuevo[posAux] != null && !vectorNuevo[posAux].isEliminado()) {
 						if (resolucionLineal) {
 							posAux++;
-							if (posAux >= size) {
+							if (posAux >= nuevoSize) {
 								posAux = 0;
 							}
 						} else {
@@ -160,6 +161,77 @@ public class HashCerrado<K, T> implements HashTable<K, T> {
 			}
 		}
 		return nodo;
+	}
+
+//	public T obtener(K clave) {
+//		NodoHash<K, T> nodo = null;
+//		T valor = null;
+//		int posEsperada = clave.hashCode() % size;
+//		if(vector[posEsperada]==null) {
+//			valor = null;
+//		}else
+//		if (vector[posEsperada].getClave().equals(clave) && vector[posEsperada].isEliminado() == false) {
+//			nodo = vector[posEsperada];
+//		} else {
+//			if (resolucionLineal) {
+//				posEsperada++;
+//				while (posEsperada < vector.length
+//						&& (vector[posEsperada] != null && !vector[posEsperada].getClave().equals(clave))) {
+//					posEsperada++;
+//				}
+//			} else {
+//				int cuadratica = 1;
+//				while (posEsperada < vector.length
+//						&& (vector[posEsperada] != null && !vector[posEsperada].getClave().equals(clave))) {
+//					posEsperada = posEsperada + cuadratica * cuadratica;
+//					while (posEsperada >= size) {
+//						posEsperada = posEsperada - size;
+//					}
+//				}
+//			}
+//			if (vector[posEsperada]!=null && vector[posEsperada].getClave().equals(clave) && vector[posEsperada].isEliminado() == false) {
+//				nodo = vector[posEsperada];
+//			}
+//		}
+//		valor = nodo==null ? null : nodo.getValor();
+//		return valor;
+//	}
+	public T obtener(K key) {
+		T valor = null;
+		int posEsperada = abs(key.hashCode() % size);
+		if (vector[posEsperada] != null) {
+			if (vector[posEsperada].getClave().equals(key) && vector[posEsperada].isEliminado() == false) {
+				valor = vector[posEsperada].getValor();
+			} else {
+				if (resolucionLineal) {
+					posEsperada++;
+					int cantRecorridas = 0;
+					while (cantRecorridas < size
+							&& (vector[posEsperada] != null && !vector[posEsperada].getClave().equals(key))) {
+						posEsperada++;
+						if (posEsperada >= size) {
+							posEsperada = 0;
+						}
+						cantRecorridas++;
+					}
+				} else {
+					int cuadratica = 1;
+					while (vector[posEsperada] != null && !vector[posEsperada].getClave().equals(key)) {
+						posEsperada = posEsperada + cuadratica * cuadratica;
+						cuadratica++;
+						while (posEsperada >= size) {
+							posEsperada = posEsperada - size;
+						}
+					}
+				}
+				if (posEsperada < vector.length && vector[posEsperada] != null) {
+					if (vector[posEsperada].getClave().equals(key) && vector[posEsperada].isEliminado() == false) {
+						valor = vector[posEsperada].getValor();
+					}
+				}
+			}
+		}
+		return valor;
 	}
 
 }

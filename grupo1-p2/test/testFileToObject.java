@@ -1,4 +1,4 @@
-//import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 
@@ -8,14 +8,16 @@ import uy.edu.um.prog2.*;
 import uy.edu.um.prog2.adt.ListaEnlazadaSimple.Exceptions.PosicionInvalida;
 import uy.edu.um.prog2.adt.Queue.Exceptions.EmptyQueueException;
 
-public class testV0 {
+public class testFileToObject {
 
 	@Test
-	public void test() throws IOException, PosicionInvalida, EmptyQueueException {
+	public void testLoadFiles() throws IOException, PosicionInvalida, EmptyQueueException {
 		FileToObjects carga = new FileToObjects();
-		carga.loadFiles();
-		Reporte reporte = new Reporte();
-		reporte.reporte1();
+		carga.loadFiles("tabla_datos.CSV");
+		assertTrue(true);
+		
+//		Reporte reporte = new Reporte();
+//		reporte.reporte1();
 	}
 
 }

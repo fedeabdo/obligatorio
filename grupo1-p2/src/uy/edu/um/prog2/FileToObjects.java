@@ -2,14 +2,18 @@ package uy.edu.um.prog2;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
+import uy.edu.um.prog2.Exceptions.EspecificacionesException;
 import uy.edu.um.prog2.Exceptions.RubroException;
 import uy.edu.um.prog2.adt.Hash.*;
 import uy.edu.um.prog2.adt.Hash.Exceptions.ElementoYaExistenteException;
 import uy.edu.um.prog2.adt.ListaEnlazadaSimple.*;
 import uy.edu.um.prog2.adt.Tree.*;
+
+import static uy.edu.um.prog2.Especificaciones.especificar;
 
 public class FileToObjects {
 	private MiListaEnlazada<Empresa> empresas;
@@ -26,28 +30,60 @@ public class FileToObjects {
 		cantProductos = 0;
 	}
 
-	public void loadFiles() throws IOException {
-		File f = new File("tabla_datos.csv");
-
-		BufferedReader b = new BufferedReader(new FileReader(f));
+	public void loadFiles(String dir) throws IOException {
+		String encodedData = "UTF8";							//Codificacion del archivo. UTF-8 en nuestro caso.
+		File fileDir = new File(dir);									//En el obligatorio dirDatos = tabla_datos.csv
+		BufferedReader b = new BufferedReader(new InputStreamReader(new FileInputStream(fileDir),encodedData));
 
 		String readLine = null;
 
-		readLine = b.readLine();
-		while ((readLine = b.readLine()) != null) {
-			String[] fields = readLine.split(";");
-			String nombre = String.valueOf(fields[0].substring(1, fields[0].length() - 1));
-			String nombreFantasia = String.valueOf(fields[1].substring(1, fields[1].length() - 1));
-			Integer idProd = Integer.valueOf(fields[2].substring(1, fields[2].length() - 1));
-			String rubro = String.valueOf(fields[3].substring(1, fields[3].length() - 1));
-			String empresa = String.valueOf(fields[5].substring(1, fields[5].length() - 1));
-			Integer idClase = Integer.valueOf(fields[9].substring(1, fields[9].length() - 1));
-			String clase = String.valueOf(fields[10].substring(1, fields[10].length() - 1));
-			String marca = String.valueOf(fields[12].substring(1, fields[12].length() - 1));
-			String pais = String.valueOf(fields[13].substring(1, fields[13].length() - 1));
-			String estado = String.valueOf(fields[20].substring(1, fields[20].length() - 1));
-			Long ruc = Long.valueOf(fields[23].substring(1, fields[23].length() - 1));
-
+		readLine = b.readLine();									//lee la 1era liena. La lee con " extras al principio y final.
+		readLine = readLine.substring(1, readLine.length()-1);		//Para solucionarlo hacemos un substring de ese Strng sacando esas " extras
+		String[] nombreCol = readLine.split("\";\"");				// \" representa " , lo hacemos para separar los ; entre columnas y los ; usados dentro de una misma columna
+		HashCerrado<String, Integer> fieldsCol = new HashCerrado<>(nombreCol.length + 10, true);	//Hash de todas las columnas de los datos
+		for(int i = 0; i<nombreCol.length; i++) {
+			try {
+				fieldsCol.insertar(nombreCol[i], i);
+			} catch (ElementoYaExistenteException e) {
+				e.getStackTrace();
+			}
+		}
+		
+		String[] especificaciones = new String[11];				//Estas son los nombres de las columnas que nos interesan en este caso.
+		especificaciones[0] = "nombre";
+		especificaciones[1] = "nom_fantasia";
+		especificaciones[2] = "idprod";
+		especificaciones[3] = "rubro";
+		especificaciones[4] = "empresa";
+		especificaciones[5] = "idclase";
+		especificaciones[6] = "clase";
+		especificaciones[7] = "marca";
+		especificaciones[8] = "pais";
+		especificaciones[9] = "estado";
+		especificaciones[10] = "ruc";
+		int[] indEspCol = null;
+		try {
+			indEspCol = especificar(especificaciones, fieldsCol);			//a este metodo le ponemos como argumento las columnas que queremos conocer su indice. Devuelve un vector con los indices de las respectivas columnas interesadas.
+		} catch (EspecificacionesException e2) {
+			e2.printStackTrace();
+		}
+		String[] fields = null;
+		readLine = b.readLine();										//leemos la 2da linea
+		while (readLine != null) {
+			readLine = readLine.substring(1, readLine.length()-1);		//sacamos las comillas extras
+			fields = readLine.split("\";\"");							//separamos
+			String nombre = fields[indEspCol[0]];
+			String nombreFantasia = fields[indEspCol[1]];
+			Integer idProd = Integer.valueOf(fields[indEspCol[2]]);
+			String rubro = fields[indEspCol[3]];
+			String empresa = fields[indEspCol[4]];
+			Integer idClase = Integer.valueOf(fields[indEspCol[5]]);
+			String clase = fields[indEspCol[6]];
+			String marca = fields[indEspCol[7]];
+			String pais = fields[indEspCol[8]];
+			String estado = fields[indEspCol[9]];
+			Long ruc = Long.valueOf(fields[indEspCol[10]]);
+			
 			Empresa oEmpresa = vEmpresa(empresa, ruc);
 			Clase oClase = vClase(idClase, clase);
 			Pais oPais = vPais(pais);
@@ -72,7 +108,7 @@ public class FileToObjects {
 				System.out.println();
 				e.printStackTrace();
 			}
-
+			readLine = b.readLine();
 		}
 		b.close();
 	}

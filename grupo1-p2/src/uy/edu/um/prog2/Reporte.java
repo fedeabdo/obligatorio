@@ -13,7 +13,7 @@ public class Reporte {
 	public Reporte() {
 		file = new FileToObjects();
 		try {
-			file.loadFiles();
+			file.loadFiles("nombre del archivo. DEBE SER PASADO POR MENU");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

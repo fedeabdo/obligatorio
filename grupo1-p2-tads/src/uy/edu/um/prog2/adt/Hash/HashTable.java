@@ -9,4 +9,6 @@ public interface HashTable<K, T> {
 	public boolean pertenece(K clave);
 
 	public void borrar(K clave) throws ClaveInvalida;
+
+	public T obtener(K key);
 }
