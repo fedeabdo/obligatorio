@@ -37,13 +37,13 @@ public class Principal {
 
 			switch (accion) {
 			case 1:
-				oReporte.reporte1();
+//				oReporte.reporte1();
 				break;
 			case 2:
 				oReporte.reporte2();
 				break;
 			case 3:
-				oReporte.reporte3();
+//				oReporte.reporte3();
 				break;
 			case 4:
 				oReporte.reporte4();

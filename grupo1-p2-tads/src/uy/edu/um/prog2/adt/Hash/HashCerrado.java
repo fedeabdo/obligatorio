@@ -57,11 +57,14 @@ public class HashCerrado<K, T> implements HashTable<K, T> {
 			} else {
 				if (resolucionLineal) {
 					posEsperada++;
+					if (posEsperada == size) {
+						posEsperada = 0;
+					}
 					int cantRecorridas = 0;
-					while (cantRecorridas < size
-							&& (vector[posEsperada] != null && !vector[posEsperada].getClave().equals(clave))) {
+					while ((cantRecorridas < size
+							&& (vector[posEsperada] != null) && !vector[posEsperada].getClave().equals(clave))) {
 						posEsperada++;
-						if (posEsperada >= size) {
+						if (posEsperada == size) {
 							posEsperada = 0;
 						}
 						cantRecorridas++;
@@ -205,6 +208,9 @@ public class HashCerrado<K, T> implements HashTable<K, T> {
 			} else {
 				if (resolucionLineal) {
 					posEsperada++;
+					if (posEsperada >= size) {
+						posEsperada = 0;
+					}
 					int cantRecorridas = 0;
 					while (cantRecorridas < size
 							&& (vector[posEsperada] != null && !vector[posEsperada].getClave().equals(key))) {

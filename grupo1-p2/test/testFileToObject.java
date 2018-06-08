@@ -12,10 +12,12 @@ public class testFileToObject {
 
 	@Test
 	public void testLoadFiles() throws IOException, PosicionInvalida, EmptyQueueException {
+		long startTime=System.currentTimeMillis();
 		FileToObjects carga = new FileToObjects();
 		carga.loadFiles("tabla_datos.CSV");
 		assertTrue(true);
-		
+		long endTime=System.currentTimeMillis();
+		System.out.println(endTime-startTime);
 //		Reporte reporte = new Reporte();
 //		reporte.reporte1();
 	}
