@@ -10,6 +10,7 @@ import uy.edu.um.prog2.adt.Hash.Exceptions.ElementoYaExistenteException;
 import uy.edu.um.prog2.adt.ListaEnlazadaSimple.*;
 import uy.edu.um.prog2.adt.ListaEnlazadaSimple.Exceptions.PosicionInvalida;
 import uy.edu.um.prog2.adt.Queue.*;
+import uy.edu.um.prog2.adt.Queue.Exceptions.EmptyQueueException;
 import uy.edu.um.prog2.reportes.Reporte1;
 
 public class Reporte {
@@ -46,8 +47,9 @@ public class Reporte {
 	// }
 	// }
 
-	public void reporte1() {
+	public void reporte1() throws EmptyQueueException {
 		HashTable<Long, Reporte1> hashEmpresas = recorrerHashReporte1();
+		System.out.println("termine con la parte 1 del reporte");
 		/*
 		 * Recorrer Hash de empresas y poner cada empresa en una queue ordenada por
 		 * prioridad segun la cantidad de elementos. Con un for recorrer los primeros 20
@@ -56,9 +58,12 @@ public class Reporte {
 		Iterator itEmpresas=hashEmpresas.iterator();
 		MyPriorityQueue<Empresa> queue=new Queue<Empresa>();
 		while(itEmpresas.hasNext()) {
-			
+			Reporte1 reporte=(Reporte1) itEmpresas.next();
+			queue.insert(reporte.getoEmpresa(), reporte.getCantidadProductosHabilitados());
 		}
-		
+		for(int i=0; i<20; i++) {
+			System.out.println(queue.dequeue().getNombre());
+		}
 	}
 
 	public void reporte2() {
@@ -115,6 +120,8 @@ public class Reporte {
 				e.printStackTrace();
 			}
 		}
+		
+		System.out.println("termine primer while");
 		Iterator itProductos=hashEmpresas.iterator();
 		while(itProductos.hasNext()) {
 			Producto prod=(Producto) itProductos.next();
