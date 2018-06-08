@@ -51,7 +51,7 @@ public class Principal {
 
 			switch (accion) {
 			case 1:
-				// oReporte.reporte1();
+//				oReporte.reporte1(oReporte);
 				break;
 			case 2:
 				oReporte.reporte2();

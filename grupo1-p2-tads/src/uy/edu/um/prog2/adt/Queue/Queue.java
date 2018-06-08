@@ -2,7 +2,7 @@ package uy.edu.um.prog2.adt.Queue;
 
 import uy.edu.um.prog2.adt.Queue.Exceptions.EmptyQueueException;
 
-public class Queue<G> implements MyPiorityQueue<G> {
+public class Queue<G> implements MyPriorityQueue<G> {
 	private Nodo<G> first;
 //	private Nodo<G> last;
 	

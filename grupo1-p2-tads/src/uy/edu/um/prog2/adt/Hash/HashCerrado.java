@@ -144,7 +144,7 @@ public class HashCerrado<K, T> implements HashTable<K, T> {
 
 	private NodoHash<K, T> get(K clave) {
 		NodoHash<K, T> nodo = null;
-		int posEsperada = clave.hashCode() % size;
+		int posEsperada = abs(clave.hashCode() % size);
 		if (vector[posEsperada].getClave().equals(clave) && vector[posEsperada].isEliminado() == false) {
 			nodo = vector[posEsperada];
 		} else {

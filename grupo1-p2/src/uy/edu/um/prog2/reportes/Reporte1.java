@@ -6,10 +6,10 @@ public class Reporte1 {
 	private Empresa oEmpresa;
 	private int cantidadProductosHabilitados;
 	
-	public Reporte1(Empresa oEmpresa, int cantidadProductosHabilitados) {
+	public Reporte1(Empresa oEmpresa) {
 		super();
 		this.oEmpresa = oEmpresa;
-		this.cantidadProductosHabilitados = cantidadProductosHabilitados;
+		this.cantidadProductosHabilitados = 0;
 	}
 
 	public Empresa getoEmpresa() {
@@ -24,8 +24,8 @@ public class Reporte1 {
 		return cantidadProductosHabilitados;
 	}
 
-	public void setCantidadProductosHabilitados(int cantidadProductosHabilitados) {
-		this.cantidadProductosHabilitados = cantidadProductosHabilitados;
+	public void agregarProducto() {
+		cantidadProductosHabilitados++;
 	}
 	
 	
