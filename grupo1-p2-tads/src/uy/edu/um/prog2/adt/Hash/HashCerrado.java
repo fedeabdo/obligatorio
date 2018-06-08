@@ -1,7 +1,12 @@
 package uy.edu.um.prog2.adt.Hash;
 
 import uy.edu.um.prog2.adt.Hash.Exceptions.ElementoYaExistenteException;
+import uy.edu.um.prog2.adt.Hash.Iterator.MyIterator;
+
 import static java.lang.Math.abs;
+
+import java.util.Iterator;
+
 import uy.edu.um.prog2.adt.Hash.Exceptions.ClaveInvalida;
 
 public class HashCerrado<K, T> implements HashTable<K, T> {
@@ -238,6 +243,10 @@ public class HashCerrado<K, T> implements HashTable<K, T> {
 			}
 		}
 		return valor;
+	}
+
+	public Iterator<T> iterator() {
+		return new MyIterator<K,T>(vector);
 	}
 
 }

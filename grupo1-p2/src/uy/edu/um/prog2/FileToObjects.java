@@ -3,10 +3,12 @@ package uy.edu.um.prog2;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 import uy.edu.um.prog2.Exceptions.EspecificacionesException;
+import uy.edu.um.prog2.Exceptions.InvalidFile;
 import uy.edu.um.prog2.Exceptions.RubroException;
 import uy.edu.um.prog2.adt.Hash.*;
 import uy.edu.um.prog2.adt.Hash.Exceptions.ElementoYaExistenteException;
@@ -30,15 +32,19 @@ public class FileToObjects {
 		cantProductos = 0;
 	}
 
-	public void loadFiles(String dir) throws IOException {
+	public void loadFiles(String dir) throws IOException, InvalidFile{
 		String encodedData = "UTF8"; // Codificacion del archivo. UTF-8 en nuestro caso.
-		File fileDir = new File(dir); // En el obligatorio dirDatos = tabla_datos.csv
-		BufferedReader b = new BufferedReader(new InputStreamReader(new FileInputStream(fileDir), encodedData));
-
+		File fileDir= new File(dir); // En el obligatorio dirDatos = tabla_datos.csv
+		BufferedReader b;
+		try {
+			b = new BufferedReader(new InputStreamReader(new FileInputStream(fileDir), encodedData));
+		}catch(FileNotFoundException e) {
+			throw new InvalidFile();
+		}
 		String readLine = null;
 
-		readLine = b.readLine(); // lee la 1era liena. La lee con " extras al principio y final.
-		readLine = readLine.substring(1, readLine.length() - 1); // Para solucionarlo hacemos un substring de ese Strng
+		readLine = b.readLine(); // lee la 1era linea. La lee con " extras al principio y final.
+		readLine = readLine.substring(1, readLine.length() - 1); // Para solucionarlo hacemos un substring de ese String
 																	// sacando esas " extras
 		String[] nombreCol = readLine.split("\";\""); // \" representa " , lo hacemos para separar los ; entre columnas
 														// y los ; usados dentro de una misma columna
