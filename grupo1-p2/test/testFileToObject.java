@@ -22,13 +22,13 @@ public class testFileToObject {
 		carga.loadFiles("tabla_datos.CSV");
 		assertTrue(true);
 		long endTime=System.currentTimeMillis();
-		System.out.println(endTime-startTime);
+		System.out.println(endTime-startTime + "  milisegundos");
 		
-		HashTable<Long, Empresa> hashEmpresas = carga.getEmpresas();
-		Iterator itEmpresas=hashEmpresas.iterator();
-		int i=0;
-		while(itEmpresas.hasNext()) {
-			System.out.println(i + "   " + ((Empresa)itEmpresas.next()).getNombre());
+		HashTable<String, Producto> hashProductos = carga.getProductos();
+		Iterator itProductos=hashProductos.iterator();
+		int i=1;
+		while(itProductos.hasNext()) {
+			System.out.println(i + "   " + ((Producto)itProductos.next()).getNombre());
 			i++;
 		}
 		
@@ -38,7 +38,7 @@ public class testFileToObject {
 	}
 //	
 	
-	
+//	@Test
 	public void testReporte1() throws InvalidFile {
 		Reporte reporte=new Reporte("tabla_datos.CSV");
 		System.out.println("termine carga");

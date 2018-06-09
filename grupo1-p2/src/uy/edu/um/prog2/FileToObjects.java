@@ -21,14 +21,14 @@ public class FileToObjects {
 	private HashTable<Long, Empresa> empresas;
 	private HashTable<String, Pais> paises;
 	private HashTable<String, Clase> clases;
-	private HashTable<Integer, Producto> productos;
+	private HashTable<String, Producto> productos;
 	int cantProductos;
 
 	public FileToObjects() {
 		empresas = new HashCerrado<>(1400, true);
 		paises = new HashCerrado<>(100, true);
 		clases = new HashCerrado<>(800, true);
-		productos = new HashCerrado<>(53000, true);
+		productos = new HashCerrado<>(60000, true);
 		cantProductos = 0;
 	}
 
@@ -41,7 +41,7 @@ public class FileToObjects {
 		}catch(FileNotFoundException e) {
 			throw new InvalidFile();
 		}
-		String readLine = null;
+		String readLine = "";
 
 		readLine = b.readLine(); // lee la 1era linea. La lee con " extras al principio y final.
 		readLine = readLine.substring(1, readLine.length() - 1); // Para solucionarlo hacemos un substring de ese String
@@ -83,7 +83,10 @@ public class FileToObjects {
 		}
 		String[] fields = null;
 		readLine = b.readLine(); // leemos la 2da linea
+		int i=0;
 		while (readLine != null) {
+			i++;
+			System.out.print(i);
 			readLine = readLine.substring(1, readLine.length() - 1); // sacamos las comillas extras
 			fields = readLine.split("\";\""); // separamos
 			String nombre = fields[indEspCol[0]];
@@ -110,7 +113,8 @@ public class FileToObjects {
 				e1.printStackTrace();
 			}
 			try {
-				productos.insertar(idProd, producto);
+				productos.insertar((Integer.toString(idProd) + nombre), producto);
+				System.out.println(Integer.toString(idProd) + nombre);					//prueba
 				cantProductos++;
 				if (estado == "HABILITADO") {
 					oEmpresa.agregarProducto();
@@ -123,7 +127,7 @@ public class FileToObjects {
 			}
 			readLine = b.readLine();
 		}
-		b.close();
+		b.close();		
 	}
 
 	public int getCantProductos() {
@@ -196,7 +200,7 @@ public class FileToObjects {
 		return clases;
 	}
 
-	public HashTable<Integer, Producto> getProductos() {
+	public HashTable<String, Producto> getProductos() {
 		return productos;
 	}
 

@@ -106,7 +106,7 @@ public class Reporte {
 		 * ver si el producto es != null y si esta habiltado y si si, obtener su empresa
 		 * y sumarle uno a la cantidad de prod de esa empresa.
 		 */
-		HashTable<Integer, Producto> hashProductos = file.getProductos();
+		HashTable<String, Producto> hashProductos = file.getProductos();
 		HashTable<Long, Empresa> hashEmpresas = file.getEmpresas();
 		HashTable<Long, Reporte1> hashEmpresasReporte1= new HashCerrado(1400, true);
 

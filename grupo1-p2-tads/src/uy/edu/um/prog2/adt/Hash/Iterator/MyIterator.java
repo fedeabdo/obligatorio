@@ -20,7 +20,7 @@ public class MyIterator<K, T> implements Iterator<T> {
 		boolean hasNext = false;
 		int posAux = posicion;
 		while (!hasNext && posAux < vector.length) {
-			if (vector[posicion] != null && !vector[posicion].isEliminado()) {
+			if (vector[posAux] != null && !vector[posAux].isEliminado()) {
 				hasNext = true;
 			}
 			posAux++;
@@ -32,11 +32,12 @@ public class MyIterator<K, T> implements Iterator<T> {
 		T next=null;
 		int posAux = posicion;
 		while (next==null && posAux < vector.length) {
-			if (vector[posicion] != null && !vector[posicion].isEliminado()) {
-				next=vector[posicion].getValor();
+			if (vector[posAux] != null && !vector[posAux].isEliminado()) {
+				next=vector[posAux].getValor();
 			}
 			posAux++;
 		}
+		posicion=posAux;
 		return next;
 	}
 
