@@ -18,10 +18,33 @@ import uy.edu.um.prog2.adt.Queue.Queue;
 import uy.edu.um.prog2.adt.Queue.Exceptions.EmptyQueueException;
 
 public class Reporte4 {
-	private FileToObjects ofile;
+	private Clase oClase;
+	private Pais oPais;
+	private int cantProductosHAB;
 	
-	public Reporte4(FileToObjects ofile) {
-		this.ofile = ofile;
+	public Reporte4(Clase oClase) {
+		this.oClase=oClase;
+		cantProductosHAB=0;
+	}
+
+	public Pais getoPais() {
+		return oPais;
+	}
+
+	public void setoPais(Pais oPais) {
+		this.oPais = oPais;
+	}
+
+	public Clase getoClase() {
+		return oClase;
+	}
+
+	public int getCantProductosHAB() {
+		return cantProductosHAB;
+	}
+	
+	public void agregarProductoHAB() {
+		cantProductosHAB++;
 	}
 
 //	public void reportar() {

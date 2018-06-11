@@ -13,8 +13,6 @@ public class Producto {
 	private	Empresa	empresa;
 	private	MiListaEnlazada<Rubro>	rubro;
 
-	
-	
 	public Producto(String nombre, String nombreFantasia, String estado, Clase clase, Pais pais, Marca marca,
 			Empresa empresa, MiListaEnlazada<Rubro> rubro) throws RubroException {
 		this.nombre = nombre;

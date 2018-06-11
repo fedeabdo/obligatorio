@@ -5,8 +5,6 @@ import uy.edu.um.prog2.adt.Hash.HashCerrado;
 
 public class Especificaciones {
 	private static int[] indicesEspecificaciones;
-
-	
 	
 	public static int[] especificar(String[] nombresEspecificaciones, HashCerrado<String, Integer> fields) throws EspecificacionesException {
 		indicesEspecificaciones = new int[nombresEspecificaciones.length];

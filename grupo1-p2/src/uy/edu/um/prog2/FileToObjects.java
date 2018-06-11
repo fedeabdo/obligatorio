@@ -22,13 +22,15 @@ public class FileToObjects {
 	private HashTable<String, Pais> paises;
 	private HashTable<String, Clase> clases;
 	private HashTable<String, Producto> productos;
+	private HashTable<String, Marca> marcas;
 	int cantProductos;
 
 	public FileToObjects() {
-		empresas = new HashCerrado<>(10, true);
-		paises = new HashCerrado<>(10, true);
-		clases = new HashCerrado<>(10, true);
-		productos = new HashCerrado<>(10, true);
+		empresas = new HashCerrado<>(1400, true);
+		paises = new HashCerrado<>(100, true);
+		clases = new HashCerrado<>(800, true);
+		productos = new HashCerrado<>(60000, true);
+		marcas = new HashCerrado<>(6500, true); 
 		cantProductos = 0;
 	}
 
@@ -83,10 +85,7 @@ public class FileToObjects {
 		}
 		String[] fields = null;
 		readLine = b.readLine(); // leemos la 2da linea
-		int i=0;
 		while (readLine != null) {
-			i++;
-//			System.out.print(i);
 			readLine = readLine.substring(1, readLine.length() - 1); // sacamos las comillas extras
 			fields = readLine.split("\";\""); // separamos
 			String nombre = fields[indEspCol[0]];
@@ -104,7 +103,7 @@ public class FileToObjects {
 			Empresa oEmpresa = vEmpresa(empresa, ruc);
 			Clase oClase = vClase(idClase, clase);
 			Pais oPais = vPais(pais);
-			Marca oMarca = new Marca(marca);
+			Marca oMarca = vMarca(marca, oPais);
 			MiListaEnlazada<Rubro> oRubro = getRubro(rubro);
 			Producto producto = null;
 			try {
@@ -114,15 +113,8 @@ public class FileToObjects {
 			}
 			try {
 				productos.insertar((Integer.toString(idProd) + nombre), producto);
-//				System.out.println(Integer.toString(idProd) + nombre);					//prueba
 				cantProductos++;
-				if (estado == "HABILITADO") {
-					oEmpresa.agregarProducto();
-					oMarca.agregarProductoHabilitado();
-				}
-				oPais.agregarMarca(oMarca);
 			} catch (ElementoYaExistenteException e) {
-				System.out.println();
 				e.printStackTrace();
 			}
 			readLine = b.readLine();
@@ -187,6 +179,25 @@ public class FileToObjects {
 		}
 		return oPais;
 	}
+	
+	private Marca vMarca(String marca, Pais oPais) {
+		Marca oMarca;
+		if (marca.equalsIgnoreCase("sin marca") || marca.equalsIgnoreCase("sin  marca")) {
+			oMarca= new Marca(null);
+		} else {
+			oMarca = new Marca(marca);
+			if (!marcas.pertenece(marca)) {
+				try {
+					marcas.insertar(marca, oMarca);
+				} catch (ElementoYaExistenteException e) {
+					e.printStackTrace();
+				}
+			} else {
+				oMarca = marcas.obtener(marca);
+			}
+		}
+		return oMarca;
+	}
 
 	public HashTable<Long, Empresa> getEmpresas() {
 		return empresas;
@@ -202,6 +213,10 @@ public class FileToObjects {
 
 	public HashTable<String, Producto> getProductos() {
 		return productos;
+	}
+	
+	public HashTable<String, Marca> getMarcas() {
+		return marcas;
 	}
 
 }
