@@ -17,37 +17,26 @@ public class testFileToObject {
 
 	@Test
 	public void testLoadFiles() throws IOException, PosicionInvalida, EmptyQueueException, InvalidFile {
-		long startTime=System.currentTimeMillis();
+		long startTime = System.currentTimeMillis();
 		FileToObjects carga = new FileToObjects();
 		carga.loadFiles("tabla_datos.CSV");
 		assertTrue(true);
-		long endTime=System.currentTimeMillis();
-		System.out.println(endTime-startTime + "  milisegundos");
-		
-		HashTable<String, Producto> hashProductos = carga.getProductos();
-		Iterator itProductos=hashProductos.iterator();
-		int i=1;
-		while(itProductos.hasNext()) {
-			System.out.println(i + "   " + ((Producto)itProductos.next()).getNombre());
-			i++;
-		}
-		
-		
-//		Reporte reporte = new Reporte();
-//		reporte.reporte1();
+		long endTime = System.currentTimeMillis();
+		System.out.println(endTime - startTime + "  milisegundos");
+
+		// HashTable<String, Producto> hashProductos = carga.getProductos();
+		// Iterator itProductos=hashProductos.iterator();
+		// int i=1;
+		// while(itProductos.hasNext()) {
+		// System.out.println(i + " " + ((Producto)itProductos.next()).getNombre());
+		// i++;
+		// }
+
+		// Reporte reporte = new Reporte();
+		// reporte.reporte1();
 	}
-//	
-	
-//	@Test
-	public void testReporte1() throws InvalidFile {
-		Reporte reporte=new Reporte("tabla_datos.CSV");
-		System.out.println("termine carga");
-		try {
-			reporte.reporte1();
-		} catch (EmptyQueueException e) {
-			fail();
-			e.printStackTrace();
-		}
-	}
+	//
+
+	// @Test
 
 }

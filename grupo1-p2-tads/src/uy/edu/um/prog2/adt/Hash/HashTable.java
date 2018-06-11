@@ -15,5 +15,5 @@ public interface HashTable<K, T> {
 
 	public T obtener(K key);
 	
-	public Iterator iterator();
+	public Iterator<T> iterator();
 }

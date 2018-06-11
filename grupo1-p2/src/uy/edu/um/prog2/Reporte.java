@@ -1,17 +1,19 @@
 package uy.edu.um.prog2;
 
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
 
 import uy.edu.um.prog2.Exceptions.InvalidFile;
 import uy.edu.um.prog2.adt.Hash.*;
 import uy.edu.um.prog2.adt.Hash.Exceptions.ElementoYaExistenteException;
-import uy.edu.um.prog2.adt.ListaEnlazadaSimple.*;
-import uy.edu.um.prog2.adt.ListaEnlazadaSimple.Exceptions.PosicionInvalida;
+//import uy.edu.um.prog2.adt.ListaEnlazadaSimple.*;
+//import uy.edu.um.prog2.adt.ListaEnlazadaSimple.Exceptions.PosicionInvalida;
 import uy.edu.um.prog2.adt.Queue.*;
 import uy.edu.um.prog2.adt.Queue.Exceptions.EmptyQueueException;
 import uy.edu.um.prog2.reportes.Reporte1;
+import uy.edu.um.prog2.reportes.Reporte3;
+import uy.edu.um.prog2.reportes.Reporte4;
 
 public class Reporte {
 	private FileToObjects file;
@@ -55,13 +57,13 @@ public class Reporte {
 		 * prioridad segun la cantidad de elementos. Con un for recorrer los primeros 20
 		 * elementos de la queue e imprimir.
 		 */
-		Iterator itEmpresas=hashEmpresas.iterator();
-		MyPriorityQueue<Empresa> queue=new Queue<Empresa>();
-		while(itEmpresas.hasNext()) {
-			Reporte1 reporte=(Reporte1) itEmpresas.next();
+		Iterator itEmpresas = hashEmpresas.iterator();
+		MyPriorityQueue<Empresa> queue = new Queue<Empresa>();
+		while (itEmpresas.hasNext()) {
+			Reporte1 reporte = (Reporte1) itEmpresas.next();
 			queue.insert(reporte.getoEmpresa(), reporte.getCantidadProductosHabilitados());
 		}
-		for(int i=0; i<20; i++) {
+		for (int i = 0; i < 20; i++) {
 			System.out.println(queue.dequeue().getNombre());
 		}
 	}
@@ -96,8 +98,14 @@ public class Reporte {
 	// }
 	// }
 
-	public void reporte4() {
+	public void reporte3() {
+		Reporte3 reporte = new Reporte3(file);
+		reporte.reportar();
+	}
 
+	public void reporte4() {
+		Reporte4 reporte = new Reporte4(file);
+		reporte.reportar();
 	}
 
 	private HashTable<Long, Reporte1> recorrerHashReporte1() {
@@ -108,24 +116,24 @@ public class Reporte {
 		 */
 		HashTable<String, Producto> hashProductos = file.getProductos();
 		HashTable<Long, Empresa> hashEmpresas = file.getEmpresas();
-		HashTable<Long, Reporte1> hashEmpresasReporte1= new HashCerrado(1400, true);
+		HashTable<Long, Reporte1> hashEmpresasReporte1 = new HashCerrado(1400, true);
 
-		Iterator itEmpresas=hashEmpresas.iterator();
-		while(itEmpresas.hasNext()) {
-			Empresa oEmpresa=(Empresa)itEmpresas.next();
-			Reporte1 rep=new Reporte1(oEmpresa);
+		Iterator<Empresa> itEmpresas = hashEmpresas.iterator();
+		while (itEmpresas.hasNext()) {
+			Empresa oEmpresa = (Empresa) itEmpresas.next();
+			Reporte1 rep = new Reporte1(oEmpresa);
 			try {
 				hashEmpresasReporte1.insertar(oEmpresa.getRuc(), rep);
 			} catch (ElementoYaExistenteException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		System.out.println("termine primer while");
-		Iterator itProductos=hashEmpresas.iterator();
-		while(itProductos.hasNext()) {
-			Producto prod=(Producto) itProductos.next();
-			if(prod.getEstado().equals("HABILITADO")) {
+		Iterator itProductos = hashEmpresas.iterator();
+		while (itProductos.hasNext()) {
+			Producto prod = (Producto) itProductos.next();
+			if (prod.getEstado().equals("HABILITADO")) {
 				hashEmpresasReporte1.obtener(prod.getEmpresa().getRuc()).agregarProducto();
 			}
 		}

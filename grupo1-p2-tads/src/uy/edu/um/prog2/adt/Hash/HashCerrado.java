@@ -66,8 +66,8 @@ public class HashCerrado<K, T> implements HashTable<K, T> {
 						posEsperada = 0;
 					}
 					int cantRecorridas = 0;
-					while ((cantRecorridas < size
-							&& (vector[posEsperada] != null) && !vector[posEsperada].getClave().equals(clave))) {
+					while ((cantRecorridas < size && (vector[posEsperada] != null)
+							&& !vector[posEsperada].getClave().equals(clave))) {
 						posEsperada++;
 						if (posEsperada == size) {
 							posEsperada = 0;
@@ -103,13 +103,12 @@ public class HashCerrado<K, T> implements HashTable<K, T> {
 		}
 	}
 
-
 	private void agrandarHash() {
 		int nuevoSize = 2 * size;
 		@SuppressWarnings("unchecked")
 		NodoHash<K, T>[] vectorNuevo = new NodoHash[nuevoSize];
 		for (int i = 0; i < size; i++) {
-			if(vector[i]!=null) {
+			if (vector[i] != null) {
 				K claveAux = vector[i].getClave();
 				@SuppressWarnings("unused")
 				T valorAux = vector[i].getValor();
@@ -171,39 +170,43 @@ public class HashCerrado<K, T> implements HashTable<K, T> {
 		return nodo;
 	}
 
-//	public T obtener(K clave) {
-//		NodoHash<K, T> nodo = null;
-//		T valor = null;
-//		int posEsperada = clave.hashCode() % size;
-//		if(vector[posEsperada]==null) {
-//			valor = null;
-//		}else
-//		if (vector[posEsperada].getClave().equals(clave) && vector[posEsperada].isEliminado() == false) {
-//			nodo = vector[posEsperada];
-//		} else {
-//			if (resolucionLineal) {
-//				posEsperada++;
-//				while (posEsperada < vector.length
-//						&& (vector[posEsperada] != null && !vector[posEsperada].getClave().equals(clave))) {
-//					posEsperada++;
-//				}
-//			} else {
-//				int cuadratica = 1;
-//				while (posEsperada < vector.length
-//						&& (vector[posEsperada] != null && !vector[posEsperada].getClave().equals(clave))) {
-//					posEsperada = posEsperada + cuadratica * cuadratica;
-//					while (posEsperada >= size) {
-//						posEsperada = posEsperada - size;
-//					}
-//				}
-//			}
-//			if (vector[posEsperada]!=null && vector[posEsperada].getClave().equals(clave) && vector[posEsperada].isEliminado() == false) {
-//				nodo = vector[posEsperada];
-//			}
-//		}
-//		valor = nodo==null ? null : nodo.getValor();
-//		return valor;
-//	}
+	// public T obtener(K clave) {
+	// NodoHash<K, T> nodo = null;
+	// T valor = null;
+	// int posEsperada = clave.hashCode() % size;
+	// if(vector[posEsperada]==null) {
+	// valor = null;
+	// }else
+	// if (vector[posEsperada].getClave().equals(clave) &&
+	// vector[posEsperada].isEliminado() == false) {
+	// nodo = vector[posEsperada];
+	// } else {
+	// if (resolucionLineal) {
+	// posEsperada++;
+	// while (posEsperada < vector.length
+	// && (vector[posEsperada] != null &&
+	// !vector[posEsperada].getClave().equals(clave))) {
+	// posEsperada++;
+	// }
+	// } else {
+	// int cuadratica = 1;
+	// while (posEsperada < vector.length
+	// && (vector[posEsperada] != null &&
+	// !vector[posEsperada].getClave().equals(clave))) {
+	// posEsperada = posEsperada + cuadratica * cuadratica;
+	// while (posEsperada >= size) {
+	// posEsperada = posEsperada - size;
+	// }
+	// }
+	// }
+	// if (vector[posEsperada]!=null && vector[posEsperada].getClave().equals(clave)
+	// && vector[posEsperada].isEliminado() == false) {
+	// nodo = vector[posEsperada];
+	// }
+	// }
+	// valor = nodo==null ? null : nodo.getValor();
+	// return valor;
+	// }
 	public T obtener(K key) {
 		T valor = null;
 		int posEsperada = abs(key.hashCode() % size);
@@ -246,7 +249,7 @@ public class HashCerrado<K, T> implements HashTable<K, T> {
 	}
 
 	public Iterator<T> iterator() {
-		return new MyIterator<K,T>(vector);
+		return new MyIterator<K, T>(vector);
 	}
 
 }

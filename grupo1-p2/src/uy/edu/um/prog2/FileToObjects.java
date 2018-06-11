@@ -13,7 +13,7 @@ import uy.edu.um.prog2.Exceptions.RubroException;
 import uy.edu.um.prog2.adt.Hash.*;
 import uy.edu.um.prog2.adt.Hash.Exceptions.ElementoYaExistenteException;
 import uy.edu.um.prog2.adt.ListaEnlazadaSimple.*;
-import uy.edu.um.prog2.adt.Tree.*;
+//import uy.edu.um.prog2.adt.Tree.*;
 
 import static uy.edu.um.prog2.Especificaciones.especificar;
 
@@ -25,10 +25,10 @@ public class FileToObjects {
 	int cantProductos;
 
 	public FileToObjects() {
-		empresas = new HashCerrado<>(1400, true);
-		paises = new HashCerrado<>(100, true);
-		clases = new HashCerrado<>(800, true);
-		productos = new HashCerrado<>(60000, true);
+		empresas = new HashCerrado<>(10, true);
+		paises = new HashCerrado<>(10, true);
+		clases = new HashCerrado<>(10, true);
+		productos = new HashCerrado<>(10, true);
 		cantProductos = 0;
 	}
 
@@ -39,7 +39,7 @@ public class FileToObjects {
 		try {
 			b = new BufferedReader(new InputStreamReader(new FileInputStream(fileDir), encodedData));
 		}catch(FileNotFoundException e) {
-			throw new InvalidFile();
+			throw new InvalidFile("Archivo Invalido");
 		}
 		String readLine = "";
 
@@ -86,7 +86,7 @@ public class FileToObjects {
 		int i=0;
 		while (readLine != null) {
 			i++;
-			System.out.print(i);
+//			System.out.print(i);
 			readLine = readLine.substring(1, readLine.length() - 1); // sacamos las comillas extras
 			fields = readLine.split("\";\""); // separamos
 			String nombre = fields[indEspCol[0]];
@@ -114,7 +114,7 @@ public class FileToObjects {
 			}
 			try {
 				productos.insertar((Integer.toString(idProd) + nombre), producto);
-				System.out.println(Integer.toString(idProd) + nombre);					//prueba
+//				System.out.println(Integer.toString(idProd) + nombre);					//prueba
 				cantProductos++;
 				if (estado == "HABILITADO") {
 					oEmpresa.agregarProducto();

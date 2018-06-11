@@ -5,6 +5,11 @@ import uy.edu.um.prog2.adt.ListaEnlazadaSimple.Exceptions.PosicionInvalida;
 public class ListaEnlazadaSimple<T> implements MiListaEnlazada<T> {
 	
 	private NodoObjects<T> primero;
+	private int tamanio;
+	
+	public ListaEnlazadaSimple(){
+		tamanio = 0;
+	}
 	
 	public void agregar(T i) {
 		NodoObjects<T> oNodoObjetos = new NodoObjects<T>(i);
@@ -17,6 +22,7 @@ public class ListaEnlazadaSimple<T> implements MiListaEnlazada<T> {
 			}
 			oTemp.setProximo(oNodoObjetos);
 		}
+		tamanio++;
 	}
 	
 	public void agregarEnLugar(T o, int i) { //	NOSE SI ANDA!!!
@@ -35,6 +41,7 @@ public class ListaEnlazadaSimple<T> implements MiListaEnlazada<T> {
 			NodoObjects<T> oTempMAS1 = oTemp.getProximo();
 			oTemp.setProximo(oNuevo);
 			oNuevo.setProximo(oTempMAS1);
+			tamanio++;
  ////			oNuevo.setAnterior(oTemp.getAnterior());
 //			oNuevo.setProximo(oTemp);
 //			oTemp.getAnterior().setProximo(oNuevo);
@@ -55,6 +62,7 @@ public class ListaEnlazadaSimple<T> implements MiListaEnlazada<T> {
 			oTemp = oTemp.getProximo();
 			n++;
 		}
+		tamanio--;
 		oTempA.setProximo(oTemp.getProximo());
 	}
 	
@@ -75,17 +83,7 @@ public class ListaEnlazadaSimple<T> implements MiListaEnlazada<T> {
 	}
 
 	public int tamanio() {
-		NodoObjects<T> oTemp = primero;
-		int nTamanio = 1;
-		if (primero == null) {
-			nTamanio = 0;
-		} else {
-			while (oTemp.getProximo() != null) {
-				oTemp = oTemp.getProximo();
-				nTamanio++;
-			}
-		}
-		return nTamanio;
+		return tamanio;
 	}
 	
 	public T esta (T n) {
@@ -102,11 +100,13 @@ public class ListaEnlazadaSimple<T> implements MiListaEnlazada<T> {
 	}
 	
 	public void addFirst( T value ) {
+		tamanio ++;
 		NodoObjects<T> oFirst = new NodoObjects<T>( value );
 		oFirst.setProximo( primero );
 		primero = oFirst;
 	}
 	public void addLast( T value ) {
+		tamanio++;
 		NodoObjects<T> oLast = new NodoObjects<T> (value);
 		if( primero == null ) {
 			primero = oLast;
