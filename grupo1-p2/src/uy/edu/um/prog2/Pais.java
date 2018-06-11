@@ -6,14 +6,10 @@ import uy.edu.um.prog2.adt.ListaEnlazadaSimple.Exceptions.PosicionInvalida;
 public class Pais {
 	private String nombre;
 	private MiListaEnlazada<Marca> marcas;
-	private int cantProd;
-	private int cantProdHabilitados;
 
 	public Pais(String nombre) {
 		this.nombre = nombre;
 		marcas = new ListaEnlazadaSimple<>();
-		cantProd = 0;
-		cantProdHabilitados = 0;
 	}
 
 	public String getNombre() {
@@ -25,23 +21,6 @@ public class Pais {
 			marcas.agregar(oMarca);
 		}
 	}
-
-	public int getCantProd() {
-		return cantProd;
-	}
-
-	public void setCantProd(int cantProd) {
-		this.cantProd = cantProd;
-	}
-
-	public int getCantProdHabilitados() {
-		return cantProdHabilitados;
-	}
-
-	public void setCantProdHabilitados(int cantProdHabilitados) {
-		this.cantProdHabilitados = cantProdHabilitados;
-	}
-
 	public MiListaEnlazada<Marca> getMarcas() {
 		return marcas;
 	}

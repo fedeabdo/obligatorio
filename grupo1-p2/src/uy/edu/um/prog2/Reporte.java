@@ -99,8 +99,51 @@ public class Reporte {
 	// }
 
 	public void reporte3() {
-		Reporte3 reporte = new Reporte3(file);
-		reporte.reportar();
+		HashTable<Pais, Reporte3> hashRep3 = new HashCerrado<>(100, true);
+		HashTable<String, Producto> hashProductos = file.getProductos();
+		HashTable<String, Pais> hashPaises = file.getPaises();
+		Iterator<Pais> itPaises = hashPaises.iterator();
+		Iterator<Producto> itProductos = hashProductos.iterator();
+		Pais oPais = null;
+		Producto oP = null;
+		while (itPaises.hasNext()) {
+			oPais = itPaises.next();
+			try {
+				hashRep3.insertar(oPais, new Reporte3(oPais));
+			} catch (ElementoYaExistenteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		while (itProductos.hasNext()) {
+			oP = itProductos.next();
+			hashRep3.obtener(oP.getPais()).agregarProductoTOTAL();
+			if (oP.getEstado().equals("HABILITADO")) {
+				hashRep3.obtener(oP.getPais()).agregarProductoHAB();
+			}
+		}
+		MyPriorityQueue<Reporte3> queueRep3 = new Queue<>();
+		Iterator<Reporte3> itRep3 = hashRep3.iterator();
+		Reporte3 rep3 = null;
+		while (itRep3.hasNext()) {
+			rep3 = itRep3.next();
+			queueRep3.insert(rep3, rep3.getnProductosHAB());
+		}
+
+		for (int i = 0; i < 10; i++) {
+			try {
+				rep3 = queueRep3.dequeue();
+			} catch (EmptyQueueException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("Pais:\t" + rep3.getoPais().getNombre() + ".\n *Cantidad productos habilitados: "
+					+ rep3.getnProductosHAB() + ".\n *% del total: "
+					+ rep3.getnProductosHAB() * 100 / rep3.getnProductosTOTALES() + " %.");
+		}
+
+		// Reporte3 reporte = new Reporte3();
+		// reporte.reportar();
 	}
 
 	public void reporte4() {
