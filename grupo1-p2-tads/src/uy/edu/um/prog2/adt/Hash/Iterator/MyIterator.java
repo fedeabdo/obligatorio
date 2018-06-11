@@ -8,7 +8,7 @@ public class MyIterator<K, T> implements Iterator<T> {
 	private NodoHash<K, T>[] vector;
 	private int posicion = 0;
 
-	public MyIterator(NodoHash[] vector) {
+	public MyIterator(NodoHash<K,T>[] vector) {
 		this.vector = vector;
 
 		while ((vector[posicion] == null || vector[posicion].isEliminado()) && posicion < vector.length - 1) {
