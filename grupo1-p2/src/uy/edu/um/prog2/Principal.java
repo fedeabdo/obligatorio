@@ -30,6 +30,7 @@ public class Principal {
 		do {
 			do {
 				try {
+					System.out.println("--------------------------------------------------------------------------");
 					System.out.println("A continuacion, elija el reporte que quiere realizar : ");
 					System.out.println("1- 20 empresas que disponen de mayor cantidad de productos habilitados");
 					System.out.println("2- 10 marcas por país que tienen mayor cantidad de productos habilitados");
@@ -37,6 +38,7 @@ public class Principal {
 					// PREGUNTA: El % es del total de productos de TODOS los paises o de CADA pais.
 					System.out.println("4- 20 clases por país que tienen mayor cantidad de productos habilitados");
 					System.out.println("0- SALIR");
+					System.out.println("--------------------------------------------------------------------------");
 					accion = sc.nextInt();
 					bError = false;
 				} catch (InputMismatchException e) {
@@ -65,10 +67,12 @@ public class Principal {
 			}
 
 			do {
-				System.out.println();
+//				System.out.println();
+				System.out.println("--------------------------------");
 				System.out.println("Desea realizar otro reporte?");
 				System.out.println("1 - SI");
 				System.out.println("2 - NO");
+				System.out.println("--------------------------------");
 				try {
 					accion = sc.nextInt();
 					bError = false;

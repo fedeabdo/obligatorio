@@ -34,7 +34,9 @@ public class Reporte {
 			queue.insert(reporte, reporte.getCantidadProductosHabilitados());
 		}
 		Reporte1 rep1 = null;
-		System.out.printf("%-5s%-50s%-20s\n", "", "Empresa", "Cantidad de productos habilitados");
+		System.out.printf("%-5s%-2s%-50s%-2s%-20s\n", "", "|","Empresa","|", "Cantidad de productos habilitados");
+		System.out.printf("%-5s%-2s%-50s%-2s%-20s\n", "----", "|","-------------------------------------------------",
+				"|", "-----------------------------------");
 		for (int i = 0; i < 20; i++) {
 			try {
 				rep1 = queue.dequeue();
@@ -43,7 +45,7 @@ public class Reporte {
 			}
 			int cantProd = rep1.getCantidadProductosHabilitados();
 			Empresa oEmpresa = rep1.getoEmpresa();
-			System.out.printf("%-5s%-50s%-20s\n", i+1, oEmpresa.getNombre(), cantProd);
+			System.out.printf("%-5s%-2s%-50s%-2s%-20s\n", i+1,"|", oEmpresa.getNombre(),"|", cantProd);
 		}
 	}
 
