@@ -25,19 +25,5 @@ public class testFileToObject {
 		long endTime = System.currentTimeMillis();
 		System.out.println(endTime - startTime + "  milisegundos");
 
-		// HashTable<String, Producto> hashProductos = carga.getProductos();
-		// Iterator itProductos=hashProductos.iterator();
-		// int i=1;
-		// while(itProductos.hasNext()) {
-		// System.out.println(i + " " + ((Producto)itProductos.next()).getNombre());
-		// i++;
-		// }
-
-		// Reporte reporte = new Reporte();
-		// reporte.reporte1();
 	}
-	//
-
-	// @Test
-
 }

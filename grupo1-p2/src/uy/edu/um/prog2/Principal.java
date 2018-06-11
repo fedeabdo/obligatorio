@@ -8,7 +8,7 @@ import uy.edu.um.prog2.reportes.Reporte;
 
 public class Principal {
 
-	public static void main(String[] args) {
+	public static void main() {
 		menu();
 	}
 
@@ -66,29 +66,30 @@ public class Principal {
 				oReporte.reporte4();
 				break;
 			}
+			if (accion != 0) {
+				do {
+					// System.out.println();
+					System.out.println("--------------------------------");
+					System.out.println("Desea realizar otro reporte?");
+					System.out.println("1 - SI");
+					System.out.println("2 - NO");
+					System.out.println("--------------------------------");
+					try {
+						accion = sc.nextInt();
+						bError = false;
+					} catch (InputMismatchException e) {
+						System.out.println("\n" + "Ingrese solo numeros.");
+						bError = true;
+						sc.next();
+					}
+					if (!bError && (accion > 2 || accion < 1)) {
+						System.out.println("\n" + "Ingrese un numero valido.");
+					}
+				} while (bError || (accion > 2 || accion < 1));
+			}
 
-			do {
-//				System.out.println();
-				System.out.println("--------------------------------");
-				System.out.println("Desea realizar otro reporte?");
-				System.out.println("1 - SI");
-				System.out.println("2 - NO");
-				System.out.println("--------------------------------");
-				try {
-					accion = sc.nextInt();
-					bError = false;
-				} catch (InputMismatchException e) {
-					System.out.println("\n" + "Ingrese solo numeros.");
-					bError = true;
-					sc.next();
-				}
-				if (!bError && (accion > 2 || accion < 1)) {
-					System.out.println("\n" + "Ingrese un numero valido.");
-				}
-			} while (bError || (accion > 2 || accion < 1));
-			
-			if(accion==2) {
-				accion=0;
+			if (accion == 2) {
+				accion = 0;
 			}
 
 		} while (accion != 0);

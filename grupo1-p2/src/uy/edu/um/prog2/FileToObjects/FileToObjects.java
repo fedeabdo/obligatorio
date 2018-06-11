@@ -86,28 +86,55 @@ public class FileToObjects {
 		}
 		String[] fields = null;
 		readLine = b.readLine(); // leemos la 2da linea
+		
+		//Inicializacion
+		String nombre = null;
+		String nombreFantasia = null;
+		Integer idProd = null;
+		String rubro = null;
+		String nroHabilitacion = null;
+		String empresa = null;
+		Integer idClase = null;
+		String clase = null;
+		String marca = null;
+		String pais = null;
+		String estado = null;
+		Long ruc = null;
+
+		Empresa oEmpresa = null;
+		Clase oClase = null;
+		Pais oPais = null;
+		Marca oMarca = null;
+		MiListaEnlazada<Rubro> oRubro = null;
+		Producto producto = null;
+		//
+		
+		
+		
+		
+		
 		while (readLine != null) {
 			readLine = readLine.substring(1, readLine.length() - 1); // sacamos las comillas extras
 			fields = readLine.split("\";\""); // separamos
-			String nombre = fields[indEspCol[0]];
-			String nombreFantasia = fields[indEspCol[1]];
-			Integer idProd = Integer.valueOf(fields[indEspCol[2]]);
-			String rubro = fields[indEspCol[3]];
-			String nroHabilitacion = fields[indEspCol[4]];
-			String empresa = fields[indEspCol[5]];
-			Integer idClase = Integer.valueOf(fields[indEspCol[6]]);
-			String clase = fields[indEspCol[7]];
-			String marca = fields[indEspCol[8]];
-			String pais = fields[indEspCol[9]];
-			String estado = fields[indEspCol[10]];
-			Long ruc = Long.valueOf(fields[indEspCol[11]]);
+			nombre = fields[indEspCol[0]];
+			nombreFantasia = fields[indEspCol[1]];
+			idProd = Integer.valueOf(fields[indEspCol[2]]);
+			rubro = fields[indEspCol[3]];
+			nroHabilitacion = fields[indEspCol[4]];
+			empresa = fields[indEspCol[5]];
+			idClase = Integer.valueOf(fields[indEspCol[6]]);
+			clase = fields[indEspCol[7]];
+			marca = fields[indEspCol[8]];
+			pais = fields[indEspCol[9]];
+			estado = fields[indEspCol[10]];
+			ruc = Long.valueOf(fields[indEspCol[11]]);
 
-			Empresa oEmpresa = vEmpresa(empresa, ruc);
-			Clase oClase = vClase(idClase, clase);
-			Pais oPais = vPais(pais);
-			Marca oMarca = vMarca(marca, oPais);
-			MiListaEnlazada<Rubro> oRubro = getRubro(rubro);
-			Producto producto = null;
+			oEmpresa = vEmpresa(empresa, ruc);
+			oClase = vClase(idClase, clase);
+			oPais = vPais(pais);
+			oMarca = vMarca(marca, oPais);
+			oRubro = getRubro(rubro);
+			
 			try {
 				producto = new Producto(nombre, nombreFantasia, estado, oClase, oPais, oMarca, oEmpresa, oRubro);
 			} catch (RubroException e1) {

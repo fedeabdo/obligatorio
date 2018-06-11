@@ -9,7 +9,7 @@ import uy.edu.um.prog2.reportes.Reporte;
 
 public class testReporte {
 	
-	//@Test
+	@Test
 	public void testReporte1() throws InvalidFile, EmptyQueueException {
 		long startTime = System.currentTimeMillis();
 		Reporte reporte = new Reporte("tabla_datos.CSV");
@@ -22,7 +22,7 @@ public class testReporte {
 		
 	}
 	
-//	@Test
+	@Test
 	public void testReporte2() throws InvalidFile, EmptyQueueException {
 		long startTime = System.currentTimeMillis();
 		Reporte reporte = new Reporte("tabla_datos.CSV");
@@ -35,7 +35,7 @@ public class testReporte {
 		
 	}
 
-//	@Test
+	@Test
 	public void testResporte3() throws InvalidFile {
 		long startTime = System.currentTimeMillis();
 		Reporte reporte = new Reporte("tabla_datos.CSV");
