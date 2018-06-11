@@ -12,18 +12,18 @@ import java.io.InputStreamReader;
 import uy.edu.um.prog2.Exceptions.EspecificacionesException;
 import uy.edu.um.prog2.Exceptions.InvalidFile;
 import uy.edu.um.prog2.Exceptions.RubroException;
-import uy.edu.um.prog2.adt.Hash.*;
+import uy.edu.um.prog2.adt.Hash.HashCerrado;
+import uy.edu.um.prog2.adt.Hash.HashTable;
 import uy.edu.um.prog2.adt.Hash.Exceptions.ElementoYaExistenteException;
-import uy.edu.um.prog2.adt.ListaEnlazadaSimple.*;
-//import uy.edu.um.prog2.adt.Tree.*;
+import uy.edu.um.prog2.adt.ListaEnlazadaSimple.ListaEnlazadaSimple;
+import uy.edu.um.prog2.adt.ListaEnlazadaSimple.MiListaEnlazada;
 
 public class FileToObjects {
-	private HashTable<Long, Empresa> empresas;
+	private HashTable<String, Empresa> empresas;
 	private HashTable<String, Pais> paises;
 	private HashTable<String, Clase> clases;
 	private HashTable<String, Producto> productos;
 	private HashTable<String, Marca> marcas;
-	int cantProductos;
 
 	public FileToObjects() {
 		empresas = new HashCerrado<>(1400, true);
@@ -31,7 +31,6 @@ public class FileToObjects {
 		clases = new HashCerrado<>(800, true);
 		productos = new HashCerrado<>(60000, true);
 		marcas = new HashCerrado<>(6500, true);
-		cantProductos = 0;
 	}
 
 	public void loadFiles(String dir) throws IOException, InvalidFile {
@@ -86,13 +85,13 @@ public class FileToObjects {
 		}
 		String[] fields = null;
 		readLine = b.readLine(); // leemos la 2da linea
-		
-		//Inicializacion
+
+		// ***Inicializacion - BEGIN
 		String nombre = null;
 		String nombreFantasia = null;
 		Integer idProd = null;
 		String rubro = null;
-		String nroHabilitacion = null;
+		Integer nroHabilitacion = null;
 		String empresa = null;
 		Integer idClase = null;
 		String clase = null;
@@ -107,12 +106,8 @@ public class FileToObjects {
 		Marca oMarca = null;
 		MiListaEnlazada<Rubro> oRubro = null;
 		Producto producto = null;
-		//
-		
-		
-		
-		
-		
+		// *****Inicializacion - END
+
 		while (readLine != null) {
 			readLine = readLine.substring(1, readLine.length() - 1); // sacamos las comillas extras
 			fields = readLine.split("\";\""); // separamos
@@ -120,7 +115,7 @@ public class FileToObjects {
 			nombreFantasia = fields[indEspCol[1]];
 			idProd = Integer.valueOf(fields[indEspCol[2]]);
 			rubro = fields[indEspCol[3]];
-			nroHabilitacion = fields[indEspCol[4]];
+			nroHabilitacion = Integer.valueOf(fields[indEspCol[4]]);
 			empresa = fields[indEspCol[5]];
 			idClase = Integer.valueOf(fields[indEspCol[6]]);
 			clase = fields[indEspCol[7]];
@@ -134,25 +129,20 @@ public class FileToObjects {
 			oPais = vPais(pais);
 			oMarca = vMarca(marca, oPais);
 			oRubro = getRubro(rubro);
-			
+
 			try {
-				producto = new Producto(nombre, nombreFantasia, estado, oClase, oPais, oMarca, oEmpresa, oRubro);
+				producto = new Producto(nombre, nombreFantasia, estado, oClase, oPais, oMarca, oEmpresa, oRubro, idProd, nroHabilitacion);
 			} catch (RubroException e1) {
 				e1.printStackTrace();
 			}
 			try {
 				productos.insertar((Integer.toString(idProd) + nombre + nroHabilitacion), producto);
-				cantProductos++;
 			} catch (ElementoYaExistenteException e) {
 				e.printStackTrace();
 			}
 			readLine = b.readLine();
 		}
 		b.close();
-	}
-
-	public int getCantProductos() {
-		return cantProductos;
 	}
 
 	private MiListaEnlazada<Rubro> getRubro(String rubro) {
@@ -167,14 +157,14 @@ public class FileToObjects {
 
 	private Empresa vEmpresa(String empresa, Long ruc) {
 		Empresa oEmpresa = new Empresa(empresa, ruc);
-		if (!empresas.pertenece(ruc)) {
+		if (!empresas.pertenece(empresa)) {
 			try {
-				empresas.insertar(ruc, oEmpresa);
+				empresas.insertar(empresa, oEmpresa);
 			} catch (ElementoYaExistenteException e) {
 				e.printStackTrace();
 			}
 		} else {
-			oEmpresa = empresas.obtener(ruc);
+			oEmpresa = empresas.obtener(empresa);
 		}
 		return oEmpresa;
 	}
@@ -211,24 +201,24 @@ public class FileToObjects {
 
 	private Marca vMarca(String marca, Pais oPais) {
 		Marca oMarca;
-		if (marca.equalsIgnoreCase("sin marca") || marca.equalsIgnoreCase("sin  marca")) {
-			oMarca = new Marca(null);
-		} else {
-			oMarca = new Marca(marca);
-			if (!marcas.pertenece(marca)) {
-				try {
-					marcas.insertar(marca, oMarca);
-				} catch (ElementoYaExistenteException e) {
-					e.printStackTrace();
-				}
-			} else {
-				oMarca = marcas.obtener(marca);
-			}
+		if (marca.equalsIgnoreCase("sin  marca")) {
+			marca.replace("  ", " ");
 		}
+		oMarca = new Marca(marca);
+		if (!marcas.pertenece(marca)) {
+			try {
+				marcas.insertar(marca, oMarca);
+			} catch (ElementoYaExistenteException e) {
+				e.printStackTrace();
+			}
+		} else {
+			oMarca = marcas.obtener(marca);
+		}
+
 		return oMarca;
 	}
 
-	public HashTable<Long, Empresa> getEmpresas() {
+	public HashTable<String, Empresa> getEmpresas() {
 		return empresas;
 	}
 

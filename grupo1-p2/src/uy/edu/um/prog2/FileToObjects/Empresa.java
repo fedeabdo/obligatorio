@@ -15,12 +15,28 @@ public class Empresa {
 		return ruc;
 	}
 	
-	public boolean equals(Empresa e) {
-		boolean equal=false;
-		if(this.ruc.equals(e.getRuc())) {
-			equal=true;
-		}
-		return equal;
+	@Override
+	public int hashCode() {
+		int result = nombre.hashCode();
+		return result;
 	}
-	 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Empresa other = (Empresa) obj;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		return true;
+	}
+	
+
+	
 }

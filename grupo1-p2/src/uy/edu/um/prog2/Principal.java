@@ -99,7 +99,7 @@ public class Principal {
 				}
 
 			} while (accion != 0);
-		}else {
+		} else {
 			System.out.println("Ha llegado al limite de ingresos erroneos.");
 		}
 		sc.close();

@@ -172,7 +172,7 @@ public class Reporte {
 
 	private HashTable<Long, EmpresaAUX> recorrerHashReporte1() {
 		HashTable<String, Producto> hashProductos = file.getProductos();
-		HashTable<Long, Empresa> hashEmpresas = file.getEmpresas();
+		HashTable<String, Empresa> hashEmpresas = file.getEmpresas();
 		HashTable<Long, EmpresaAUX> hashEmpresasReporte1 = new HashCerrado<>(1400, true);
 
 		Iterator<Empresa> itEmpresas = hashEmpresas.iterator();

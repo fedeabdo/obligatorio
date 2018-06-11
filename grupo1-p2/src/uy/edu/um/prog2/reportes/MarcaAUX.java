@@ -1,9 +1,9 @@
 package uy.edu.um.prog2.reportes;
 
-import uy.edu.um.prog2.*;
 import uy.edu.um.prog2.FileToObjects.Marca;
 import uy.edu.um.prog2.FileToObjects.Pais;
-import uy.edu.um.prog2.adt.Hash.*;
+import uy.edu.um.prog2.adt.Hash.HashCerrado;
+import uy.edu.um.prog2.adt.Hash.HashTable;
 import uy.edu.um.prog2.adt.Hash.Exceptions.ElementoYaExistenteException;
 
 public class MarcaAUX {

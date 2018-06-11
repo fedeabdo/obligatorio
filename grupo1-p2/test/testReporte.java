@@ -1,6 +1,3 @@
-import static org.junit.Assert.*;
-
-import org.junit.Ignore;
 import org.junit.Test;
 
 import uy.edu.um.prog2.Exceptions.InvalidFile;
