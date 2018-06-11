@@ -1,16 +1,18 @@
 package uy.edu.um.prog2.reportes;
 
 import uy.edu.um.prog2.*;
+import uy.edu.um.prog2.FileToObjects.Marca;
+import uy.edu.um.prog2.FileToObjects.Pais;
 import uy.edu.um.prog2.adt.Hash.*;
 import uy.edu.um.prog2.adt.Hash.Exceptions.ElementoYaExistenteException;
 
-public class Reporte2 {
+public class MarcaAUX {
 	private Marca oMarca;
-	private HashTable<String, Reporte3> hashRep3;
+	private HashTable<String, PaisAUX> hashRep3;
 
-	public Reporte2(Marca oMarca) {
+	public MarcaAUX(Marca oMarca) {
 		this.oMarca = oMarca;
-		hashRep3 = new HashCerrado<String, Reporte3>(100, true);
+		hashRep3 = new HashCerrado<String, PaisAUX>(100, true);
 	}
 
 	public Pais getoPais(String pais) {
@@ -20,7 +22,7 @@ public class Reporte2 {
 	public void agregarPaisYProductoHabilitado(Pais oPais) {
 		String nombrePais = oPais.getNombre();
 		try {
-			Reporte3 rep3 = new Reporte3(oPais);
+			PaisAUX rep3 = new PaisAUX(oPais);
 			hashRep3.insertar(nombrePais, rep3);
 			rep3.agregarProductoHAB();
 		} catch (ElementoYaExistenteException e) {
@@ -36,7 +38,7 @@ public class Reporte2 {
 		return hashRep3.obtener(oPais.getNombre()).getnProductosHAB();
 	}
 	
-	public HashTable<String, Reporte3> getHashPaises() {
+	public HashTable<String, PaisAUX> getHashPaises() {
 		return hashRep3;
 	}
 }

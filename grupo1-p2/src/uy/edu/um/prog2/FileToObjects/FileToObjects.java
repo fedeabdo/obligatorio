@@ -1,4 +1,6 @@
-package uy.edu.um.prog2;
+package uy.edu.um.prog2.FileToObjects;
+
+import static uy.edu.um.prog2.FileToObjects.Especificaciones.especificar;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,8 +16,6 @@ import uy.edu.um.prog2.adt.Hash.*;
 import uy.edu.um.prog2.adt.Hash.Exceptions.ElementoYaExistenteException;
 import uy.edu.um.prog2.adt.ListaEnlazadaSimple.*;
 //import uy.edu.um.prog2.adt.Tree.*;
-
-import static uy.edu.um.prog2.Especificaciones.especificar;
 
 public class FileToObjects {
 	private HashTable<Long, Empresa> empresas;

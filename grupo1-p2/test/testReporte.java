@@ -3,9 +3,9 @@ import static org.junit.Assert.*;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import uy.edu.um.prog2.Reporte;
 import uy.edu.um.prog2.Exceptions.InvalidFile;
 import uy.edu.um.prog2.adt.Queue.Exceptions.EmptyQueueException;
+import uy.edu.um.prog2.reportes.Reporte;
 
 public class testReporte {
 	
@@ -22,7 +22,7 @@ public class testReporte {
 		
 	}
 	
-	@Test
+//	@Test
 	public void testReporte2() throws InvalidFile, EmptyQueueException {
 		long startTime = System.currentTimeMillis();
 		Reporte reporte = new Reporte("tabla_datos.CSV");
@@ -35,7 +35,7 @@ public class testReporte {
 		
 	}
 
-	//@Test
+//	@Test
 	public void testResporte3() throws InvalidFile {
 		long startTime = System.currentTimeMillis();
 		Reporte reporte = new Reporte("tabla_datos.CSV");
@@ -47,7 +47,7 @@ public class testReporte {
 		System.out.println("Reporte3 : " + (finishTime-startTime) + "  milisegundos");
 	}
 	
-	//@Test
+	@Test
 	public void testReporte4() throws InvalidFile {
 		long startTime = System.currentTimeMillis();
 		Reporte reporte = new Reporte("tabla_datos.CSV");

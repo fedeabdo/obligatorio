@@ -1,14 +1,15 @@
-package uy.edu.um.prog2;
+package uy.edu.um.prog2.FileToObjects;
 
-public class Pais {
+public class Rubro {
 	private String nombre;
-
-	public Pais(String nombre) {
+	
+	public Rubro(String nombre) {
 		this.nombre = nombre;
 	}
-
+	
 	public String getNombre() {
 		return nombre;
 	}
-
+	
+	
 }

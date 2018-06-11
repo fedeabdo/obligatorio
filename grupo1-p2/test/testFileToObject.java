@@ -7,11 +7,12 @@ import org.junit.Test;
 
 import uy.edu.um.prog2.*;
 import uy.edu.um.prog2.Exceptions.InvalidFile;
+import uy.edu.um.prog2.FileToObjects.FileToObjects;
 import uy.edu.um.prog2.adt.Hash.HashTable;
 import uy.edu.um.prog2.adt.Hash.Exceptions.ElementoYaExistenteException;
 import uy.edu.um.prog2.adt.ListaEnlazadaSimple.Exceptions.PosicionInvalida;
 import uy.edu.um.prog2.adt.Queue.Exceptions.EmptyQueueException;
-import uy.edu.um.prog2.reportes.Reporte1;
+import uy.edu.um.prog2.reportes.EmpresaAUX;
 
 public class testFileToObject {
 

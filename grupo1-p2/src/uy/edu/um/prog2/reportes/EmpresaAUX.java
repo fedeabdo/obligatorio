@@ -1,12 +1,12 @@
 package uy.edu.um.prog2.reportes;
 
-import uy.edu.um.prog2.Empresa;
+import uy.edu.um.prog2.FileToObjects.Empresa;
 
-public class Reporte1 {
+public class EmpresaAUX {
 	private Empresa oEmpresa;
 	private int cantidadProductosHabilitados;
 	
-	public Reporte1(Empresa oEmpresa) {
+	public EmpresaAUX(Empresa oEmpresa) {
 		super();
 		this.oEmpresa = oEmpresa;
 		this.cantidadProductosHabilitados = 0;

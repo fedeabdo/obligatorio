@@ -1,4 +1,4 @@
-package uy.edu.um.prog2;
+package uy.edu.um.prog2.FileToObjects;
 
 import uy.edu.um.prog2.Exceptions.EspecificacionesException;
 import uy.edu.um.prog2.adt.Hash.HashCerrado;

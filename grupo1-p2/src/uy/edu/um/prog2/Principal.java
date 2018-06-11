@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import uy.edu.um.prog2.Exceptions.InvalidFile;
+import uy.edu.um.prog2.reportes.Reporte;
 
 public class Principal {
 

@@ -1,4 +1,4 @@
-package uy.edu.um.prog2;
+package uy.edu.um.prog2.FileToObjects;
 
 public class Empresa {
 	private String nombre;
