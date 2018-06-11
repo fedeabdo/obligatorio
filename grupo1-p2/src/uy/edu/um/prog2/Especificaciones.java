@@ -12,7 +12,7 @@ public class Especificaciones {
 			if(fields.pertenece(nombresEspecificaciones[i])) {
 				indicesEspecificaciones[i] = fields.obtener(nombresEspecificaciones[i]);
 			}else {
-				throw new EspecificacionesException("No existe la columna llamada, " + nombresEspecificaciones[i] + ", en los datos.");
+				throw new EspecificacionesException("No existe la columna llamada " + nombresEspecificaciones[i] + ", en los datos.");
 			}
 		}
 		return indicesEspecificaciones;

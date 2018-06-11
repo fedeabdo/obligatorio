@@ -5,5 +5,11 @@ public class ElementoYaExistenteException extends Exception {
 	public ElementoYaExistenteException(String msg) {
 		super(msg);
 	}
+	
+	public ElementoYaExistenteException() {
+		super();
+	}
+	
+	
 
 }

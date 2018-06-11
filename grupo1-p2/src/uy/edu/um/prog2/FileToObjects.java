@@ -30,17 +30,17 @@ public class FileToObjects {
 		paises = new HashCerrado<>(100, true);
 		clases = new HashCerrado<>(800, true);
 		productos = new HashCerrado<>(60000, true);
-		marcas = new HashCerrado<>(6500, true); 
+		marcas = new HashCerrado<>(6500, true);
 		cantProductos = 0;
 	}
 
-	public void loadFiles(String dir) throws IOException, InvalidFile{
+	public void loadFiles(String dir) throws IOException, InvalidFile {
 		String encodedData = "UTF8"; // Codificacion del archivo. UTF-8 en nuestro caso.
-		File fileDir= new File(dir); // En el obligatorio dirDatos = tabla_datos.csv
+		File fileDir = new File(dir); // En el obligatorio dirDatos = tabla_datos.csv
 		BufferedReader b;
 		try {
 			b = new BufferedReader(new InputStreamReader(new FileInputStream(fileDir), encodedData));
-		}catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			throw new InvalidFile("Archivo Invalido");
 		}
 		String readLine = "";
@@ -61,19 +61,20 @@ public class FileToObjects {
 			}
 		}
 
-		String[] especificaciones = new String[11]; // Estas son los nombres de las columnas que nos interesan en este
+		String[] especificaciones = new String[12]; // Estas son los nombres de las columnas que nos interesan en este
 													// caso.
 		especificaciones[0] = "nombre";
 		especificaciones[1] = "nom_fantasia";
 		especificaciones[2] = "idprod";
 		especificaciones[3] = "rubro";
-		especificaciones[4] = "empresa";
-		especificaciones[5] = "idclase";
-		especificaciones[6] = "clase";
-		especificaciones[7] = "marca";
-		especificaciones[8] = "pais";
-		especificaciones[9] = "estado";
-		especificaciones[10] = "ruc";
+		especificaciones[4] = "nro_hab";
+		especificaciones[5] = "empresa";
+		especificaciones[6] = "idclase";
+		especificaciones[7] = "clase";
+		especificaciones[8] = "marca";
+		especificaciones[9] = "pais";
+		especificaciones[10] = "estado";
+		especificaciones[11] = "ruc";
 		int[] indEspCol = null;
 		try {
 			indEspCol = especificar(especificaciones, fieldsCol); // a este metodo le ponemos como argumento las
@@ -92,13 +93,14 @@ public class FileToObjects {
 			String nombreFantasia = fields[indEspCol[1]];
 			Integer idProd = Integer.valueOf(fields[indEspCol[2]]);
 			String rubro = fields[indEspCol[3]];
-			String empresa = fields[indEspCol[4]];
-			Integer idClase = Integer.valueOf(fields[indEspCol[5]]);
-			String clase = fields[indEspCol[6]];
-			String marca = fields[indEspCol[7]];
-			String pais = fields[indEspCol[8]];
-			String estado = fields[indEspCol[9]];
-			Long ruc = Long.valueOf(fields[indEspCol[10]]);
+			String nroHabilitacion = fields[indEspCol[4]];
+			String empresa = fields[indEspCol[5]];
+			Integer idClase = Integer.valueOf(fields[indEspCol[6]]);
+			String clase = fields[indEspCol[7]];
+			String marca = fields[indEspCol[8]];
+			String pais = fields[indEspCol[9]];
+			String estado = fields[indEspCol[10]];
+			Long ruc = Long.valueOf(fields[indEspCol[11]]);
 
 			Empresa oEmpresa = vEmpresa(empresa, ruc);
 			Clase oClase = vClase(idClase, clase);
@@ -112,14 +114,14 @@ public class FileToObjects {
 				e1.printStackTrace();
 			}
 			try {
-				productos.insertar((Integer.toString(idProd) + nombre), producto);
+				productos.insertar((Integer.toString(idProd) + nombre + nroHabilitacion), producto);
 				cantProductos++;
 			} catch (ElementoYaExistenteException e) {
 				e.printStackTrace();
 			}
 			readLine = b.readLine();
 		}
-		b.close();		
+		b.close();
 	}
 
 	public int getCantProductos() {
@@ -153,7 +155,7 @@ public class FileToObjects {
 	private Clase vClase(Integer idClase, String clase) {
 		Clase oClase = null;
 		Clase oClaseEnHash = clases.obtener(Integer.toString(idClase) + clase);
-		if (oClaseEnHash==null) {
+		if (oClaseEnHash == null) {
 			oClase = new Clase(idClase, clase);
 			try {
 				clases.insertar(Integer.toString(idClase) + clase, oClase);
@@ -179,11 +181,11 @@ public class FileToObjects {
 		}
 		return oPais;
 	}
-	
+
 	private Marca vMarca(String marca, Pais oPais) {
 		Marca oMarca;
 		if (marca.equalsIgnoreCase("sin marca") || marca.equalsIgnoreCase("sin  marca")) {
-			oMarca= new Marca(null);
+			oMarca = new Marca(null);
 		} else {
 			oMarca = new Marca(marca);
 			if (!marcas.pertenece(marca)) {
@@ -214,7 +216,7 @@ public class FileToObjects {
 	public HashTable<String, Producto> getProductos() {
 		return productos;
 	}
-	
+
 	public HashTable<String, Marca> getMarcas() {
 		return marcas;
 	}

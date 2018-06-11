@@ -11,8 +11,11 @@ public class MyIterator<K, T> implements Iterator<T> {
 	public MyIterator(NodoHash[] vector) {
 		this.vector = vector;
 
-		while (vector[posicion] == null || vector[posicion].isEliminado()) {
+		while ((vector[posicion] == null || vector[posicion].isEliminado()) && posicion < vector.length - 1) {
 			posicion++;
+		}
+		if(posicion==vector.length-1 && (vector[posicion] == null || vector[posicion].isEliminado())) {
+			posicion=0;
 		}
 	}
 
@@ -29,15 +32,15 @@ public class MyIterator<K, T> implements Iterator<T> {
 	}
 
 	public T next() {
-		T next=null;
+		T next = null;
 		int posAux = posicion;
-		while (next==null && posAux < vector.length) {
+		while (next == null && posAux < vector.length) {
 			if (vector[posAux] != null && !vector[posAux].isEliminado()) {
-				next=vector[posAux].getValor();
+				next = vector[posAux].getValor();
 			}
 			posAux++;
 		}
-		posicion=posAux;
+		posicion = posAux;
 		return next;
 	}
 

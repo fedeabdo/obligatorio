@@ -25,6 +25,9 @@ public class HashCerrado<K, T> implements HashTable<K, T> {
 
 	public void insertar(K clave, T valor) throws ElementoYaExistenteException {
 		NodoHash<K, T> nuevoNodo = new NodoHash<>(clave, valor);
+		if(pertenece(clave)) {
+			throw new ElementoYaExistenteException();
+		}
 		if ((float) cantElementos / size > 0.8) {
 			agrandarHash();
 		}
