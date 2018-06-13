@@ -44,10 +44,10 @@ public class FileToObjects {
 		}
 		String readLine = "";
 
-		readLine = b.readLine(); // lee la 1era linea. La lee con " extras al principio y final.
-		readLine = readLine.substring(1, readLine.length() - 1); // Para solucionarlo hacemos un substring de ese String
+		readLine = b.readLine(); // Lee la 1era linea. La lee con " extra al principio y final.
+		readLine = readLine.substring(1, readLine.length() - 1); 	// Para solucionarlo hacemos un substring de ese String
 																	// sacando esas " extras
-		String[] nombreCol = readLine.split("\";\""); // \" representa " , lo hacemos para separar los ; entre columnas
+		String[] nombreCol = readLine.split("\";\""); 	// \" representa " , lo hacemos para distinguir los ; entre columnas
 														// y los ; usados dentro de una misma columna
 		HashCerrado<String, Integer> fieldsCol = new HashCerrado<>(nombreCol.length + 10, true); // Hash de todas las
 																									// columnas de los

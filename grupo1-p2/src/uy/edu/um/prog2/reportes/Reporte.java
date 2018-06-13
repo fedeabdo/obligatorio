@@ -31,93 +31,94 @@ public class Reporte {
 		HashTable<Long, EmpresaAUX> hashEmpresas = recorrerHashReporte1();
 		Iterator<EmpresaAUX> itEmpresas = hashEmpresas.iterator();
 		MyPriorityQueue<EmpresaAUX> queue = new Queue<>();
+		EmpresaAUX oEmpresaAUX = null;
 		while (itEmpresas.hasNext()) {
-			EmpresaAUX reporte = itEmpresas.next();
-			queue.insert(reporte, reporte.getCantidadProductosHabilitados());
+			oEmpresaAUX = itEmpresas.next();
+			queue.insert(oEmpresaAUX, oEmpresaAUX.getCantProductosHab());
 		}
-		EmpresaAUX rep1 = null;
 		System.out.printf("%-5s%-2s%-50s%-2s%-20s\n", "", "|", "Empresa", "|", "Cantidad de productos habilitados");
 		System.out.printf("%-5s%-2s%-50s%-2s%-20s\n", "----", "|", "-------------------------------------------------",
 				"|", "-----------------------------------");
+		int cantProd;
+		Empresa oEmpresa;
 		for (int i = 0; i < 20; i++) {
 			try {
-				rep1 = queue.dequeue();
+				oEmpresaAUX = queue.dequeue();
 			} catch (EmptyQueueException e) {
 				e.printStackTrace();
 			}
-			int cantProd = rep1.getCantidadProductosHabilitados();
-			Empresa oEmpresa = rep1.getoEmpresa();
+			cantProd = oEmpresaAUX.getCantProductosHab();
+			oEmpresa = oEmpresaAUX.getoEmpresa();
 			System.out.printf("%-5s%-2s%-50s%-2s%-20s\n", i + 1, "|", oEmpresa.getNombre(), "|", cantProd);
 		}
 	}
 
 	public void reporte2() {
-		HashTable<String, MarcaAUX> hashReporte2 = recorrerHashReporte2();
-		Iterator<MarcaAUX> itRep2 = hashReporte2.iterator();
-		MyPriorityQueue<MarcaAUX> queueRep2 = new Queue<>();
+		HashTable<String, MarcaAUX> hashMarcaAUX = recorrerHashReporte2();
+		Iterator<MarcaAUX> itMarcaAUX = hashMarcaAUX.iterator();
+		Iterator<PaisAUX> itPaisAUX;
+		MyPriorityQueue<MarcaAUX> queueMarcaAUX = new Queue<>();
 		MyPriorityQueue<Pais> queuePaises = new Queue<>();
-		MarcaAUX rep2 = null;
-		Iterator<PaisAUX> itRep3;
-		PaisAUX rep3;
-		while (itRep2.hasNext()) {
-			rep2 = (MarcaAUX) itRep2.next();
-			itRep3 = rep2.getHashPaises().iterator();
-			while (itRep3.hasNext()) {
-				rep3 = itRep3.next();
-				queueRep2.insert(rep2, rep3.getnProductosHAB());
-				queuePaises.insert(rep3.getoPais(), rep3.getnProductosHAB());
+		MarcaAUX oMarcaAUX = null;
+		PaisAUX oPaisAUX = null;
+		while (itMarcaAUX.hasNext()) {
+			oMarcaAUX = (MarcaAUX) itMarcaAUX.next();
+			itPaisAUX = oMarcaAUX.getHashPaises().iterator();
+			while (itPaisAUX.hasNext()) {
+				oPaisAUX = itPaisAUX.next();
+				queueMarcaAUX.insert(oMarcaAUX, oPaisAUX.getCantProductosHab());
+				queuePaises.insert(oPaisAUX.getoPais(), oPaisAUX.getCantProductosHab());
 			}
 		}
-		int cantProd;
 		System.out.printf("%-5s%-2s%-30s%-2s%-30s%-2s%-20s\n", "", "|", "Marca", "|", "Pais", "|",
 				"Cantidad de productos habilitados");
 		System.out.printf("%-5s%-2s%-30s%-2s%-30s%-2s%-20s\n", "----", "|", "-----------------------------", "|",
 				"-----------------------------", "|", "-----------------------------------");
+		int cantProd;
 		Pais oPais = null;
 		for (int i = 0; i < 10; i++) {
 			try {
-				rep2 = queueRep2.dequeue();
+				oMarcaAUX = queueMarcaAUX.dequeue();
 				oPais = queuePaises.dequeue();
 			} catch (EmptyQueueException e) {
 				e.printStackTrace();
 			}
-			cantProd = rep2.getCantidadProductosHabilitados(oPais);
-			System.out.printf("%-5s%-2s%-30s%-2s%-30s%-2s%-20s\n", i + 1, "|", rep2.getoMarca().getNombre(), "|",
+			cantProd = oMarcaAUX.getCantidadProductosHabilitados(oPais);
+			System.out.printf("%-5s%-2s%-30s%-2s%-30s%-2s%-20s\n", i + 1, "|", oMarcaAUX.getoMarca().getNombre(), "|",
 					oPais.getNombre(), "|", cantProd);
 		}
 	}
 
 	public void reporte3() {
-		int nProductosHabTotales = 0;
-		HashTable<Pais, PaisAUX> hashRep3 = new HashCerrado<>(100, true);
+		HashTable<Pais, PaisAUX> hashPaisAUX = new HashCerrado<>(100, true);
 		HashTable<String, Producto> hashProductos = file.getProductos();
 		HashTable<String, Pais> hashPaises = file.getPaises();
 		Iterator<Pais> itPaises = hashPaises.iterator();
 		Iterator<Producto> itProductos = hashProductos.iterator();
 		Pais oPais = null;
-		Producto oP = null;
+		Producto oProducto = null;
 		while (itPaises.hasNext()) {
 			oPais = itPaises.next();
 			try {
-				hashRep3.insertar(oPais, new PaisAUX(oPais));
+				hashPaisAUX.insertar(oPais, new PaisAUX(oPais));
 			} catch (ElementoYaExistenteException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		int nProductosHabTotales = 0;
 		while (itProductos.hasNext()) {
-			oP = itProductos.next();
-			if (oP.getEstado().equals("HABILITADO")) {
-				hashRep3.obtener(oP.getPais()).agregarProductoHAB();
+			oProducto = itProductos.next();
+			if (oProducto.getEstado().equals("HABILITADO")) {
+				hashPaisAUX.obtener(oProducto.getPais()).agregarProductoHab();
 				nProductosHabTotales++;
 			}
 		}
-		MyPriorityQueue<PaisAUX> queueRep3 = new Queue<>();
-		Iterator<PaisAUX> itRep3 = hashRep3.iterator();
-		PaisAUX rep3 = null;
-		while (itRep3.hasNext()) {
-			rep3 = itRep3.next();
-			queueRep3.insert(rep3, rep3.getnProductosHAB());
+		MyPriorityQueue<PaisAUX> queuePaisAUX = new Queue<>();
+		Iterator<PaisAUX> itPaisAUX = hashPaisAUX.iterator();
+		PaisAUX oPaisAUX = null;
+		while (itPaisAUX.hasNext()) {
+			oPaisAUX = itPaisAUX.next();
+			queuePaisAUX.insert(oPaisAUX, oPaisAUX.getCantProductosHab());
 		}
 		System.out.printf("%-5s%-2s%-40s%-2s%-35s%-2s%-30s\n", "", "|", "Pais", "|", "Cantidad productos habilitados",
 				"|", "% del total");
@@ -125,92 +126,95 @@ public class Reporte {
 				"|", "----------------------------------", "|", "-----------------------------");
 		for (int i = 0; i < 10; i++) {
 			try {
-				rep3 = queueRep3.dequeue();
+				oPaisAUX = queuePaisAUX.dequeue();
 			} catch (EmptyQueueException e) {
 				e.printStackTrace();
 			}
-			System.out.printf("%-5s%-2s%-40s%-2s%-35s%-2s%-30s\n", i + 1, "|", rep3.getoPais().getNombre(), "|",
-					rep3.getnProductosHAB(), "|", rep3.getnProductosHAB() * 100 / nProductosHabTotales + "%");
+			System.out.printf("%-5s%-2s%-40s%-2s%-35s%-2s%-30s\n", i + 1, "|", oPaisAUX.getoPais().getNombre(), "|",
+					oPaisAUX.getCantProductosHab(), "|", oPaisAUX.getCantProductosHab() * 100 / nProductosHabTotales + "%");
 		}
 	}
 
 	public void reporte4() {
-		HashTable<Clase, ClaseAUX> hashReporte4 = recorrerHashReporte4();
-		Iterator<ClaseAUX> itClases = hashReporte4.iterator();
+		HashTable<Clase, ClaseAUX> hashClaseAUX = recorrerHashReporte4();
+		Iterator<ClaseAUX> itClaseAUX = hashClaseAUX.iterator();
 		Iterator<PaisAUX> itPaisesPClase = null;
-		PaisAUX rep3 = null;
 		MyPriorityQueue<Clase> queue = new Queue<>();
-		MyPriorityQueue<PaisAUX>	queuePaises = new Queue<>();
-		while (itClases.hasNext()) {
-			ClaseAUX rep4 = itClases.next();
-			itPaisesPClase = rep4.getHashPaises().iterator();
-			while(itPaisesPClase.hasNext()) {
-				rep3 = itPaisesPClase.next();
-				queue.insert(rep4.getoClase(), rep3.getnProductosHAB());
-				queuePaises.insert(rep3, rep3.getnProductosHAB());
-				
+		MyPriorityQueue<PaisAUX> queuePaises = new Queue<>();
+		PaisAUX oPaisAUX = null;
+		ClaseAUX oClaseAUX;
+		while (itClaseAUX.hasNext()) {
+			oClaseAUX = itClaseAUX.next();
+			itPaisesPClase = oClaseAUX.getHashPaises().iterator();
+			while (itPaisesPClase.hasNext()) {
+				oPaisAUX = itPaisesPClase.next();
+				queue.insert(oClaseAUX.getoClase(), oPaisAUX.getCantProductosHab());
+				queuePaises.insert(oPaisAUX, oPaisAUX.getCantProductosHab());
+
 			}
 		}
 		System.out.printf("%-5s%-2s%-108s%-2s%-40s%-2s%-20s\n", "", "|", "Clase", "|", "Pais", "|",
 				"Cantidad de productos habilitados");
 		System.out.printf("%-5s%-2s%-108s%-2s%-40s%-2s%-20s\n", "----", "|",
-				"----------------------------------------------------------------------------------------------------------", "|", "---------------------------------------",
-				"|", "-----------------------------------");
+				"----------------------------------------------------------------------------------------------------------",
+				"|", "---------------------------------------", "|", "-----------------------------------");
 		Clase oClase = null;
 		for (int i = 0; i < 20; i++) {
 			try {
 				oClase = queue.dequeue();
-				rep3 = queuePaises.dequeue();
+				oPaisAUX = queuePaises.dequeue();
 			} catch (EmptyQueueException e) {
 				e.printStackTrace();
 			}
-			int cantProd = rep3.getnProductosHAB();
+			int cantProd = oPaisAUX.getCantProductosHab();
 			System.out.printf("%-5s%-2s%-108s%-2s%-40s%-2s%-20s\n", i + 1, "|", oClase.getNombre(), "|",
-					rep3.getoPais().getNombre(), "|", cantProd);
+					oPaisAUX.getoPais().getNombre(), "|", cantProd);
 		}
 	}
 
 	private HashTable<Long, EmpresaAUX> recorrerHashReporte1() {
 		HashTable<String, Producto> hashProductos = file.getProductos();
 		HashTable<String, Empresa> hashEmpresas = file.getEmpresas();
-		HashTable<Long, EmpresaAUX> hashEmpresasReporte1 = new HashCerrado<>(1400, true);
+		HashTable<Long, EmpresaAUX> hashEmpresaAUX = new HashCerrado<>(1400, true);
 
 		Iterator<Empresa> itEmpresas = hashEmpresas.iterator();
+		Empresa oEmpresa;
+		EmpresaAUX oEAUX;
 		while (itEmpresas.hasNext()) {
-			Empresa oEmpresa = itEmpresas.next();
-			EmpresaAUX rep = new EmpresaAUX(oEmpresa);
+			oEmpresa = itEmpresas.next();
+			oEAUX = new EmpresaAUX(oEmpresa);
 			try {
-				hashEmpresasReporte1.insertar(oEmpresa.getRuc(), rep);
+				hashEmpresaAUX.insertar(oEmpresa.getRuc(), oEAUX);
 			} catch (ElementoYaExistenteException e) {
 				e.printStackTrace();
 			}
 		}
 
 		Iterator<Producto> itProductos = hashProductos.iterator();
+		Producto prod;
 		while (itProductos.hasNext()) {
-			Producto prod = itProductos.next();
+			prod = itProductos.next();
 			if (prod.getEstado().equals("HABILITADO")) {
-				hashEmpresasReporte1.obtener(prod.getEmpresa().getRuc()).agregarProducto();
+				hashEmpresaAUX.obtener(prod.getEmpresa().getRuc()).agregarProductoHab();
 			}
 		}
 
-		return hashEmpresasReporte1;
+		return hashEmpresaAUX;
 	}
 
 	private HashTable<String, MarcaAUX> recorrerHashReporte2() {
 		HashTable<String, Producto> hashProductos = file.getProductos();
 		HashTable<String, Marca> hashMarcas = file.getMarcas();
 		HashTable<String, MarcaAUX> hashMarcasReporte2 = new HashCerrado<>(6500, true);
-
 		Iterator<Marca> itMarcas = hashMarcas.iterator();
 		Marca oMarca = null;
-		MarcaAUX rep;
+		MarcaAUX oMarcaAUX;
 		while (itMarcas.hasNext()) {
 			oMarca = itMarcas.next();
 			if (oMarca.getNombre() != null) {
-				rep = new MarcaAUX(oMarca);
+				oMarcaAUX = new MarcaAUX(oMarca);
 				try {
-					hashMarcasReporte2.insertar(oMarca.getNombre(), rep);
+					hashMarcasReporte2.insertar(oMarca.getNombre(), oMarcaAUX);
 				} catch (ElementoYaExistenteException e) {
 					e.printStackTrace();
 				}
@@ -218,14 +222,13 @@ public class Reporte {
 		}
 
 		Iterator<Producto> itProductos = hashProductos.iterator();
-		Producto prod;
-		MarcaAUX rep2;
+		Producto oProducto;
 		while (itProductos.hasNext()) {
-			prod = itProductos.next();
-			oMarca = prod.getMarca();
-			if (prod.getEstado().equals("HABILITADO") && oMarca.getNombre() != null) {
-				rep2 = hashMarcasReporte2.obtener(oMarca.getNombre());
-				rep2.agregarPaisYProductoHabilitado(prod.getPais());
+			oProducto = itProductos.next();
+			oMarca = oProducto.getMarca();
+			if (oProducto.getEstado().equals("HABILITADO") && oMarca.getNombre() != null) {
+				oMarcaAUX = hashMarcasReporte2.obtener(oMarca.getNombre());
+				oMarcaAUX.agregarPaisYProductoHabilitado(oProducto.getPais());
 			}
 		}
 		return hashMarcasReporte2;
@@ -235,30 +238,31 @@ public class Reporte {
 	private HashTable<Clase, ClaseAUX> recorrerHashReporte4() {
 		HashTable<String, Producto> hashProductos = file.getProductos();
 		HashTable<String, Clase> hashClases = file.getClases();
-		HashTable<Clase, ClaseAUX> hashReporte4 = new HashCerrado<>(800, true);
+		HashTable<Clase, ClaseAUX> hashClaseAUX = new HashCerrado<>(800, true);
 
 		Iterator<Clase> itClases = hashClases.iterator();
+		Clase oClase;
+		ClaseAUX oClaseAUX;
 		while (itClases.hasNext()) {
-			Clase oClase = itClases.next();
-			ClaseAUX rep4 = new ClaseAUX(oClase);
+			oClase = itClases.next();
+			oClaseAUX = new ClaseAUX(oClase);
 			try {
-				hashReporte4.insertar(oClase, rep4);
+				hashClaseAUX.insertar(oClase, oClaseAUX);
 			} catch (ElementoYaExistenteException e) {
 				e.printStackTrace();
 			}
 		}
 
 		Iterator<Producto> itProductos = hashProductos.iterator();
-		Producto prod;
-		Clase oClase;
+		Producto oProducto;
 		while (itProductos.hasNext()) {
-			prod = itProductos.next();
-			oClase = (Clase) prod.getClase();
-			if (prod.getEstado().equals("HABILITADO")) {
-				hashReporte4.obtener(oClase).setHashPaises(prod.getPais());
+			oProducto = itProductos.next();
+			oClase = (Clase) oProducto.getClase();
+			if (oProducto.getEstado().equals("HABILITADO")) {
+				hashClaseAUX.obtener(oClase).setHashPaises(oProducto.getPais());
 			}
 		}
-		return hashReporte4;
+		return hashClaseAUX;
 	}
 
 }

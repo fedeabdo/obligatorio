@@ -27,9 +27,9 @@ public class ClaseAUX {
 		try {
 			PaisAUX rep3 = new PaisAUX(oPais);
 			hashPaises.insertar(oPais, rep3);
-			rep3.agregarProductoHAB();
+			rep3.agregarProductoHab();
 		} catch (ElementoYaExistenteException e) {
-			hashPaises.obtener(oPais).agregarProductoHAB();
+			hashPaises.obtener(oPais).agregarProductoHab();
 		}
 	}
 

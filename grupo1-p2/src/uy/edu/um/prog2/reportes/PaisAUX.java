@@ -4,23 +4,23 @@ import uy.edu.um.prog2.FileToObjects.Pais;
 
 public class PaisAUX {
 	private Pais oPais;
-	private int nProductosHAB;
+	private int cantProductosHab;
 
 	public PaisAUX(Pais oPais) {
 		this.oPais = oPais;
-		nProductosHAB = 0;
+		cantProductosHab = 0;
 	}
 
 	public Pais getoPais() {
 		return oPais;
 	}
 
-	public int getnProductosHAB() {
-		return nProductosHAB;
+	public int getCantProductosHab() {
+		return cantProductosHab;
 	}
 
-	public void agregarProductoHAB() {
-		nProductosHAB++;
+	public void agregarProductoHab() {
+		cantProductosHab++;
 	}
 
 }

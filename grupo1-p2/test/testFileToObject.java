@@ -1,5 +1,3 @@
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 
 import org.junit.Test;
@@ -16,7 +14,6 @@ public class testFileToObject {
 		long startTime = System.currentTimeMillis();
 		FileToObjects carga = new FileToObjects();
 		carga.loadFiles("tabla_datos.CSV");
-		assertTrue(true);
 		long endTime = System.currentTimeMillis();
 		System.out.println(endTime - startTime + "  milisegundos");
 

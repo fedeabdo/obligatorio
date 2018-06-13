@@ -39,10 +39,10 @@ public class Principal {
 						System.out
 								.println("--------------------------------------------------------------------------");
 						System.out.println("A continuacion, elija el reporte que quiere realizar : ");
-						System.out.println("1- 20 empresas que disponen de mayor cantidad de productos habilitados");
-						System.out.println("2- 10 marcas por país que tienen mayor cantidad de productos habilitados");
-						System.out.println("3- 10 países que disponen la mayor cantidad de productos habilitados");
-						System.out.println("4- 20 clases por país que tienen mayor cantidad de productos habilitados");
+						System.out.println("1- Las 20 empresas que disponen de mayor cantidad de productos habilitados");
+						System.out.println("2- Las 10 marcas por país que tienen mayor cantidad de productos habilitados");
+						System.out.println("3- Los 10 países que disponen la mayor cantidad de productos habilitados");
+						System.out.println("4- Las 20 clases por país que tienen mayor cantidad de productos habilitados");
 						System.out.println("0- SALIR");
 						System.out
 								.println("--------------------------------------------------------------------------");
@@ -74,7 +74,6 @@ public class Principal {
 				}
 				if (accion != 0) {
 					do {
-						// System.out.println();
 						System.out.println("--------------------------------");
 						System.out.println("Desea realizar otro reporte?");
 						System.out.println("1 - SI");

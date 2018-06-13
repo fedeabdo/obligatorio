@@ -4,12 +4,12 @@ import uy.edu.um.prog2.FileToObjects.Empresa;
 
 public class EmpresaAUX {
 	private Empresa oEmpresa;
-	private int cantidadProductosHabilitados;
+	private int cantProductosHab;
 	
 	public EmpresaAUX(Empresa oEmpresa) {
 		super();
 		this.oEmpresa = oEmpresa;
-		this.cantidadProductosHabilitados = 0;
+		this.cantProductosHab = 0;
 	}
 
 	public Empresa getoEmpresa() {
@@ -20,12 +20,12 @@ public class EmpresaAUX {
 		this.oEmpresa = oEmpresa;
 	}
 
-	public int getCantidadProductosHabilitados() {
-		return cantidadProductosHabilitados;
+	public int getCantProductosHab() {
+		return cantProductosHab;
 	}
 
-	public void agregarProducto() {
-		cantidadProductosHabilitados++;
+	public void agregarProductoHab() {
+		cantProductosHab++;
 	}
 	
 	
