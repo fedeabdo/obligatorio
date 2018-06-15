@@ -33,9 +33,15 @@ solo dentro de los reportes, lo que evita el gasto de recursos y memoria para la
 Para el ordenamiento de los datos segun la cantidad de productos habilitados, los insertamos en una estructura de Queue 
 con prioridad, donde la prioridad es la cantidad de productos habilitados. 
 
-Medicion de eficiencia
-Duracion promedio de la carga de datos: 1060ms
-Duracion promedio del reporte 1: 31ms
-Duracion promedio del reporte 2: 280ms
-Duracion promedio del reporte 3: 25ms
-Duracion promedio del reporte 4: 196ms
+Medicion de eficiencia:
+	Carga de Datos: 	Duracion promedio: 1060ms
+			Memoria RAM consumida para cargar datos:  71.1 Mb. 
+			Memoria RAM luego de cargar los Datos (despues de Perform GC):  12.7Mb.
+	Reporte 1: 	Duracion promedio : 31ms
+			Memoria RAM consumida: 3,2 Mb
+	Reporte 2:	Duracion promedio: 280 ms
+			Memoria RAM consumida: 23,3 Mb
+	Reporte 3:	Duracion promedio: 25ms
+			Memoria RAM consumida: 2,6 Mb
+	Reporte 4:	Duracion promedio: 196ms
+			Memoria RAM consumida: 25,7 Mb
